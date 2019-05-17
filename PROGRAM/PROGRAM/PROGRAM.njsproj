@@ -31,7 +31,10 @@
     <Compile Include="server.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <Content Include="styles\login_form.css">
+    <Content Include="public\styles\login_form.css">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\styles\list_users.css">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\login_Page.pug">
@@ -45,8 +48,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="assets\" />
-    <Folder Include="styles\" />
+    <Folder Include="public\assets\" />
+    <Folder Include="public\" />
+    <Folder Include="public\styles\" />
     <Folder Include="views\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->

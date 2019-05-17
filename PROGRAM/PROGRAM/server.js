@@ -18,8 +18,7 @@ server.use(bodyParser.urlencoded({ extended: true }))
 // parse application/json
 server.use(bodyParser.json())
 
-server.use(express.static(path.join(__dirname, '/styles')));
-server.use(express.static(path.join(__dirname, '/assets')));
+server.use(express.static(path.join(__dirname, '/public')));
 
 server.set('view engine', 'pug');
 server.set('views', './views')

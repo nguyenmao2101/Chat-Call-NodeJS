@@ -1,4 +1,4 @@
-﻿doctype html
+doctype html
 html
   head
     link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', rel='stylesheet')
@@ -14,12 +14,15 @@ html
         .fadeIn.first
           img#icon(src='/assets/images/login-Icon.png', alt='User Icon')
         // Login Form
-        form
-          input#login.fadeIn.second(type='email', name='email', placeholder='Email')
-          input#password.fadeIn.third(type='password', name='password', placeholder='Password')
-          input.fadeIn.fourth(type='submit', value='Log In')
+        form(action='/signup', method="POST")
+          if err
+            .alert.alert-danger= err
+          input#name.fadeIn.second(type='text', name='name', placeholder='Name', required='required')
+          input#signup.fadeIn.third(type='email', name='email', placeholder='Email', required='required')
+          input#password.fadeIn.fourth(type='password', name='password', placeholder='Password', required='required')
+          input.fadeIn.fifth(type='submit', value='Sign Up')
         // Remind Passowrd
         #formFooter
-          a.underlineHover(href='#') Forgot Password?
-          a.underlineHover(href='/signup') Sign Up
+          span Already have account 
+          a.underlineHover(href='/login') Login
 

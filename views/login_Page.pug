@@ -14,12 +14,14 @@ html
         .fadeIn.first
           img#icon(src='/assets/images/login-Icon.png', alt='User Icon')
         // Login Form
-        form
-          input#login.fadeIn.second(type='email', name='email', placeholder='Email')
-          input#password.fadeIn.third(type='password', name='password', placeholder='Password')
-          input.fadeIn.fourth(type='submit', value='Log In')
+        form(action='/login', method="POST")
+            if err
+                .alert.alert-danger.notify= err
+            input#login.fadeIn.second(type='email', name='email', placeholder='Email', required='required')
+            input#password.fadeIn.third(type='password', name='password', placeholder='Password')
+            input.fadeIn.fourth(type='submit', value='Log In')
         // Remind Passowrd
         #formFooter
-          a.underlineHover(href='#') Forgot Password?
-          a.underlineHover(href='/signup') Sign Up
+            a.underlineHover(href='#') Forgot Password?
+            a.underlineHover(href='/signup') Sign Up
 

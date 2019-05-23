@@ -1,6 +1,5 @@
-const bcrypt = require('bcrypt');
-
 var Users = require('../models/users.model');
+var securePassword = require('./secure.controller');
 var ObjectID = require('mongodb').ObjectID;
 
 module.exports.getUsers = async (req, res) => {
@@ -16,11 +15,13 @@ module.exports.addUser = async (req, res) => {
         res.render('signup_Page', { err: error });
         return;
     }
-    var infoNewUser = new Users({ _id: new ObjectID(), 
-                                    name: req.body.name, 
-                                    email: req.body.email, 
-                                    password: bcrypt.hashSync(req.body.password, 10), 
-                                    avatar: "" });
+    var infoNewUser = new Users({
+        _id: new ObjectID(), 
+        name: req.body.name, 
+        email: req.body.email,
+        password: securePassword.encryptPassword(req.body.password), 
+        avatar: ""
+    });
 
     infoNewUser.save((err, res) => {
         if (err) throw err;

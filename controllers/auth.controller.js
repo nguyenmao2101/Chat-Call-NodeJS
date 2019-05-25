@@ -1,21 +1,33 @@
-//var MongoClient = require('mongodb').MongoClient;
-//var passport = require('passport')
-//var LocalStrategy = require('passport-local').Strategy;
+var securePassword = require('./secure.controller');
+var Users = require('../models/users.model');
 
-//var db_URL = 'mongodb://localhost:27017';
 
-//passport.use(new LocalStrategy(
-//    function (username, password, done) {
-//        User.findOne({ username: username }, function (err, user) {
-//            if (err) { return done(err); }
-//            if (!user) {
-//                return done(null, false, { message: 'Incorrect username.' });
-//            }
-//            if (!user.validPassword(password)) {
-//                return done(null, false, { message: 'Incorrect password.' });
-//            }
-//            return done(null, user);
-//        });
-//    }
-//));
+var checkUserExists = async (userEmail) => {
+    var existsUser = await Users.findOne({ email: userEmail });
+
+    console.log(existsUser);
+    if (existsUser.length == 0) {
+        return false;
+    }
+    return existsUser;
+}
+
+
+module.exports.identityUser = async (req, res) => {
+    var existsUser = await checkUserExists(req.body.email);
+    if (!existsUser) {
+        res.render('login_Page', { err: "Account does not exists!!!" });
+        return; 
+    }
+
+    var correctPass = securePassword.decryptPassword(req.body.password,
+                                                        existsUser.password);
+
+    if (!correctPass) {
+        res.render('login_Page', { err: "Password incorrect!!!" });
+        return; 
+    }
+    res.cookie('userId', existsUser._id, { signed: true });
+    res.redirect('/dashboard');
+}
 

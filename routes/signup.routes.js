@@ -1,4 +1,4 @@
-var express = require('express');
+const express = require('express');
 
 var connect = require('../controllers/connectDB.controller');
 var direct = require('../controllers/users.controller')

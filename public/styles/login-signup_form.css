@@ -77,10 +77,10 @@ h2.active {
     border-bottom: 2px solid #5fbae9;
 }
 
-
-
+.notify {
+    margin: 4px 34px;
+}
 /* FORM TYPOGRAPHY*/
-
 input[type=button], input[type=submit], input[type=reset] {
     background-color: #56baed;
     border: none;

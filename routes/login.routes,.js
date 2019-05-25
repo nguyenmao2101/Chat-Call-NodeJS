@@ -1,11 +1,11 @@
-var express = require('express');
+const express = require('express');
 
-//var auth = require('../controllers/auth.controller');
+var auth = require('../controllers/auth.controller');
 var direct = require('../controllers/users.controller')
 
 var router = express.Router();
 
 router.get('/', direct.login)
-//router.post('/', auth.login)
+router.post('/', auth.identityUser)
 
 module.exports = router;

@@ -3,7 +3,7 @@ var securePassword = require('./secure.controller');
 var ObjectID = require('mongodb').ObjectID;
 
 module.exports.getUsers = async (req, res) => {
-    var list_users = await Users.find();
+    var list_users = await Users.find({ _id: { $ne: req.signedCookies.userId } });
     res.render('users_Page', { users: list_users })
 }
 

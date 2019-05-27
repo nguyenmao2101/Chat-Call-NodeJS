@@ -1,6 +1,6 @@
 
 var openStream = () => {
-    var configs = { video: true, audio: true };
+    var configs = { video: true, audio: false };
     return navigator.mediaDevices.getUserMedia(configs);
 }
 

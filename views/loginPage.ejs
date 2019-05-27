@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link id="bootstrap-css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/login-signup_form.css" type="text/css">
+    <link rel="shortcut icon" href="">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <!-- Tabs Titles-->
+        <!-- Icon-->
+        <div class="fadeIn first"><img id="icon" src="/assets/images/login-Icon.png" alt="User Icon"></div>
+        <!-- Login Form-->
+        <form action="/login" method="POST">
+          <input class="fadeIn second" id="login" type="email" name="email" placeholder="Email" required="required">
+          <input class="fadeIn third" id="password" type="password" name="password" placeholder="Password">
+          <input class="fadeIn fourth" type="submit" value="Log In">
+        </form>
+        <!-- Remind Passowrd-->
+        <div id="formFooter"><a class="underlineHover" href="#">Forgot Password?</a><a class="underlineHover" href="/signup">Sign Up</a></div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,24 +1,24 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var userSchema = new Schema({
+var msgSchema = new Schema({
 
-    name : {
+    msgFrom : {
         type:String,
         default:"",
         required:true
     },
-    email : {
+    msgTo : {
         type:String,
         default:"",
         required:true
     },
-    password : {
+    msg : {
         type:String,
         default:"",
         required:true
     },
-    avatar : {
+    room : {
         type:String,
         default:"",
         required:true
@@ -26,14 +26,9 @@ var userSchema = new Schema({
     created : {
         type:Date,
         default:Date.now
-    },
-    updated : {
-        type:Date,
-        default:Date.now
     }
 
 });
 
-var Users = mongoose.model('Users',userSchema, 'users');
-
-module.exports = Users;
+var Messages = mongoose.model('Messages', msgSchema, 'messages');
+module.exports = Messages;

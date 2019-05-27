@@ -1,12 +1,13 @@
-
 module.exports = {
     login: (req, res) => {
-        res.render('login_Page');
+        res.render('loginPage');
     },
 
     signup: (req, res) => {
-        res.render('signup_Page');
+        res.render('signupPage');
     },
-
+    logout: (req, res) => {
+        delete req.session.user;
+        res.redirect('/login');
+    }
 }
-

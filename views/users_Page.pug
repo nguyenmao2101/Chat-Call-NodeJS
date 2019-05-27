@@ -3,8 +3,8 @@ html
   head
     title User
     link#bootstrap-css(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
-    link(rel='stylesheet', href='/styles/style.css', type='text/css')
-    link(rel='stylesheet', href='/styles/components.css', type='text/css')
+    link(rel='stylesheet', href='/stylesheets/style.css', type='text/css')
+    link(rel='stylesheet', href='/stylesheets/components.css', type='text/css')
     link(rel="shortcut icon", href="")
   body
     .main-content
@@ -33,9 +33,10 @@ html
                                         td
                                             i=user.email
                                         td
-                                            a(href='#')
-                                                img(src='/assets/images/device-camera-video.svg')
+                                            button(onClick="window.open('/videocall/incall', '_blank', 'width=600, height=700')")
+                                                img(src='/images/device-camera-video.svg')
                                         td
                                             a(href='#')
-                                                img(src='/assets/images/comment-discussion.svg')
+                                                img(src='/images/comment-discussion.svg')
                                         td
+    

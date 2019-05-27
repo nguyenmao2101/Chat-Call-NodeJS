@@ -10,6 +10,7 @@ var userRoutes = require('./routes/user.routes');
 var signupRoutes = require('./routes/signup.routes');
 var loginRoutes = require('./routes/login.routes,');
 var authMiddlewares = require('./middlewares/auth.middle');
+var videoCall = require('./routes/videocall.routes');
 
 var PORT = 1337;
 var server = express();
@@ -30,7 +31,14 @@ server.set('views', './views')
 server.get('/', authMiddlewares.requireAuth, userRoutes);
 
 server.use('/dashboard', authMiddlewares.requireAuth, userRoutes);
+server.use('/videocall', videoCall)
+
 server.use('/signup', signupRoutes);
 server.use('/login', loginRoutes);
 
+
+
+//server.get('/videocall/incall', (req, res) => {
+//    res.redirect('/dashboard');
+//})
 server.listen(PORT, () => console.log('Server is listening on ' + PORT));

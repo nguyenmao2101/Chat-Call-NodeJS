@@ -2,7 +2,7 @@ doctype html
 html
   head
     link#bootstrap-css(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
-    link(rel='stylesheet', href='/styles/login-signup_form.css', type='text/css')
+    link(rel='stylesheet', href='/stylesheets/login-signup_form.css', type='text/css')
     link(rel="shortcut icon", href="")
     script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
@@ -13,7 +13,7 @@ html
         // Tabs Titles
         // Icon
         .fadeIn.first
-          img#icon(src='/assets/images/login-Icon.png', alt='User Icon')
+          img#icon(src='/images/login-Icon.png', alt='User Icon')
         // Login Form
         form(action='/signup', method="POST")
           if err

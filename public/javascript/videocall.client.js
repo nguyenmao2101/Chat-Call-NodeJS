@@ -10,15 +10,30 @@ var playStream = (videoTag, stream) => {
     video.play();
 }
 
+//PEER CONNECT
+var idCaller = $('#local').data('value');
+var idCallee = $('#remote').data('value');
+const peer = new Peer(idCaller, { host: 'localhost', port: 1337,});
+peer.on('open', id => console.log('callerid: ' + id));
+
+//CALLER
 openStream()
     .then(stream => {
-        playStream("localStream", stream)
+        playStream('localStream', stream);
+        const call = peer.call(idCallee, stream);
+        console.log('calleeId: ' + idCallee);
+        call.on('stream', remoteStream => playStream('remoteStream', remoteStream));
     })
-    .catch(e => console.log(e));
+    .catch(e => console.log(e))
 
-//var peer = new Peer(); 
-
-
-
-
-
+//CALLEE
+peer.on('call', call => {
+    openStream()
+        .then(stream => {
+            playStream('localStream', stream);
+            call.answer(stream);
+            console.log('CALLEE');
+            call.on('stream', remoteStream => playStream('remoteStream', remoteStream))
+        })
+        .catch(e => console.log(e))
+});

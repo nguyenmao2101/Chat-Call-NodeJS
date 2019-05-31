@@ -6,7 +6,7 @@ var checkUserExists = async (userEmail) => {
     var existsUser = await Users.findOne({ email: userEmail });
 
     console.log(existsUser);
-    if (existsUser.length == 0) {
+    if (!existsUser) {
         return false;
     }
     return existsUser;

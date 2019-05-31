@@ -6,6 +6,7 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css', type='text/css')
     link(rel='stylesheet', href='/stylesheets/components.css', type='text/css')
     link(rel="shortcut icon", href="")
+    script(type="text/javascript", src='/javascript/build_in_libs/jquery-3.4.1.min.js')
   body
     .main-content
         .section
@@ -33,10 +34,10 @@ html
                                         td
                                             i=user.email
                                         td
-                                            button(onClick="window.open('/videocall/incall', '_blank', 'width=600, height=700, resizable=0')")
+                                            button.btn.btn-light(onClick="Call(this)", value=user._id)
                                                 img(src='/images/device-camera-video.svg')
                                         td
-                                            a(href='#')
+                                            button.btn.btn-light
                                                 img(src='/images/comment-discussion.svg')
                                         td
-    
+    script(type="text/javascript", src='/javascript/usersEvent.client.js')

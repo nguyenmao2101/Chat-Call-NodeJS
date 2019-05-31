@@ -3,13 +3,18 @@ html
     head
       title Video Call
       link(rel="shortcut icon", href="")
+      link(rel='stylesheet', href='/stylesheets/videocall.style.css', type='text/css')
+      script(type="text/javascript", src="https://cdn.jsdelivr.net/npm/peerjs@0.3.20/dist/peer.min.js")
+      script(type="text/javascript", src="/javascript/build_in_libs/jquery-3.4.1.min.js")   
     body
-        video#localStream(width='100%', height='700px', control='')
-        br
-        //br
-        //video#remoteStream(width='100%', controls='')
+        //get loggedId from res.locals
+        #local(data-value=loggedId)
+            video#localStream(width='100%')
+        br 
+        #remote(data-value=idCallee)
+            video#remoteStream(width='100%')
 
 
-    script(type="text/javascript", src='/javascript/videocall.client.js')
-    script(src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js")
+    script(type="text/javascript", src="/javascript/videocall.client.js")
+   
     

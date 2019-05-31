@@ -4,6 +4,6 @@ var videocall = require('../controllers/videocall.controller');
 
 var router = express.Router();
 
-router.get('/incall', videocall.call);
+router.get('/incall/', videocall.call);
 
 module.exports = router;

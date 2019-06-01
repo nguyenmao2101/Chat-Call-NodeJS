@@ -1,4 +1,4 @@
-
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 var openStream = () => {
     var configs = { video: true, audio: false };
     return navigator.mediaDevices.getUserMedia(configs);
@@ -13,8 +13,8 @@ var playStream = (videoTag, stream) => {
 //PEER CONNECT
 var idCaller = $('#local').data('value');
 var idCallee = $('#remote').data('value');
-const peer = new Peer(idCaller, { host: 'localhost', port: 1337,});
-peer.on('open', id => console.log('callerid: ' + id));
+const peer = new Peer(idCaller);
+peer.on('open', id => console.log('callerId: ' + id));
 
 //CALLER
 openStream()
@@ -27,12 +27,13 @@ openStream()
     .catch(e => console.log(e))
 
 //CALLEE
-peer.on('call', call => {
+peer.on('call', call => { 
+    console.log('CALLEE');
+    window.open('/videocall/incall/?peerId=' + idCallee, '_blank', 'width=600, height=700, resizable=0');
     openStream()
         .then(stream => {
             playStream('localStream', stream);
             call.answer(stream);
-            console.log('CALLEE');
             call.on('stream', remoteStream => playStream('remoteStream', remoteStream))
         })
         .catch(e => console.log(e))

@@ -28,7 +28,7 @@ openStream()
 
 //CALLEE
 peer.on('call', call => { 
-    console.log('CALLEE');
+    console.log('Having Calling...');
     window.open('/videocall/incall/?peerId=' + idCallee, '_blank', 'width=600, height=700, resizable=0');
     openStream()
         .then(stream => {

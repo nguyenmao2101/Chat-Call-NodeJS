@@ -6,15 +6,15 @@
         <link rel="shortcut icon" href="">
         <link rel="stylesheet" href="/stylesheets/videocall.style.css" type="text/css">
         <script type="text/javascript" src="/javascript/build_in_libs/jquery-3.4.1.min.js"></script>
-        <script type="text/javascript" src="/javascript/build_in_libs/peerjs.min.js"></script>
+        <!-- <script type="text/javascript" src="/javascript/build_in_libs/peerjs.min.js"></script> -->
     </head>
 
     <body>
         <!--get loggedId from res.locals-->
-        <div id="local"><video id="localStream" width="100%"></video></div><br>
-        <div id="remote"><video id="remoteStream" width="100%"></video></div>
+        <div id="local"><video muted="muted" id="localStream" width="100%"></video></div><br>
+        <div id="remote"><video muted="muted" id="remoteStream" width="100%"></video></div>
     </body>
     
-    <script type="text/javascript" src="/javascript/videocall.client.js"></script>
+    <!-- <script type="text/javascript" src="/javascript/videocall.client.js"></script> -->
 
 </html>

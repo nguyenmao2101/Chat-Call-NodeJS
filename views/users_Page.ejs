@@ -8,6 +8,7 @@
             <link rel="stylesheet" href="/stylesheets/components.css" type="text/css">
             <link rel="shortcut icon" href="">
             <script type="text/javascript" src="/javascript/build_in_libs/jquery-3.4.1.min.js"></script>
+            <script type="text/javascript" src="/javascript/build_in_libs/peerjs.min.js"></script>
         </head>
 
         <body>
@@ -17,6 +18,8 @@
                         <h1>List Users</h1>
                     </div>
                     <div class="section-body">
+                        <!-- loggedId get from res.local in auth method -->
+                        <div id="idClaller" data-value="<%= loggedId %>"></div>
                         <div class="card">
                             <div class="card-body table-responsive">
                                 <table class="table table-bordered">
@@ -35,7 +38,7 @@
                                             <tr>
                                                 <td></td>
                                                 <td><b><%= user.name %></b></td>
-                                                <td><b><%= user.email %></b></td>
+                                                <td><i><%= user.email %></i></td>
                                                 <td>
                                                     <button class="btn btn-light" onclick="Call(this)" value="<%= user._id %>">
                                                         <img src="/images/device-camera-video.svg" />

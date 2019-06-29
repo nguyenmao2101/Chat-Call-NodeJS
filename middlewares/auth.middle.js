@@ -1,16 +1,15 @@
 var Users = require('../models/users.model');
 
 module.exports.requireAuth = (req, res, next) => {
-    if (!req.signedCookies.userId) {
+    if (!req.session.user) {
         res.redirect('/login');
         return;
     }
 
-    var existUser = Users.findOne({ _id: req.signedCookies.userId });
+    var existUser = Users.findOne({ _id: req.session.user._id});
     if (!existUser) {
         res.redirect('/login');
         return;
     }
-    res.locals.loggedId = req.signedCookies.userId;
     next();
 }

@@ -6,16 +6,34 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
 const path = require('path');
 const express = require('express');
+const mongoose = require('mongoose');
+const session = require('express-session');
+const mongoStore = require('connect-mongo')(session);
 
 var userRoutes = require('./routes/user.routes');
 var signupRoutes = require('./routes/signup.routes');
 var loginRoutes = require('./routes/login.routes,');
+var logout = require('./routes/logout.route');
 var authMiddlewares = require('./middlewares/auth.middle');
 var videoCall = require('./routes/videocall.routes');
+var chat = require('./routes/chat.route');
 
 var app = express();
-var server = require('http').Server(app);
-//var io = require('socket.io')(server);
+var server = require('http').createServer(app);
+require('./public/javascript/chat/server.js').sockets(server);
+
+//Session init
+var sessionInit = session({
+    name : 'userCookie',
+    secret : 'uit-messages',
+    resave : true,
+    httpOnly : true,
+    saveUninitialized: true,
+    store : new mongoStore({mongooseConnection : mongoose.connection}),
+    cookie : { maxAge : 900000 }
+});
+
+app.use(sessionInit);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,10 +51,12 @@ app.set('views', './views')
 app.get('/', authMiddlewares.requireAuth, userRoutes);
 
 app.use('/dashboard', authMiddlewares.requireAuth, userRoutes);
-app.use('/videocall', authMiddlewares.requireAuth, videoCall)
+app.use('/videocall', authMiddlewares.requireAuth, videoCall);
+app.use('/chat', authMiddlewares.requireAuth, chat);
 
 app.use('/signup', signupRoutes);
 app.use('/login', loginRoutes);
+app.use('/logout', logout);
 /*END MAIN ROUTES*/
 
 server.listen(process.env.PORT, () => console.log('Server is listening on ' + process.env.PORT));

@@ -3,6 +3,8 @@ $ (function(){
     var socket = io('/chat');
   
     var username = document.getElementById('me').innerHTML;
+    var id_username = $('#id_me').val();
+    console.log('my id: ' + id_username);
     var name_receiver;
     var roomId;//variable for setting room.
     var toUser;
@@ -59,13 +61,13 @@ $ (function(){
       $('#receiverInfo').empty();
       $('#chat1').show();
       
-      toUser = list_id[$(this).index()];
       name_receiver = document.getElementById('friend_id_' + $(this).index()).innerHTML;
+      toUser = list_id[name_receiver];
       $('#receiverInfo').append($('<h5>').append(name_receiver)).append('<span>Ho Chi Minh</span>');
       $('#videoCall').val(toUser);
       eva.replace();
-      var room1 = username + '-' + toUser;
-      var room2 = toUser + '-' + username;
+      var room1 = id_username + '-' + toUser;
+      var room2 = toUser + '-' + id_username;
       //event to set room and join.
       socket.emit('set-room', {name1: room1, name2: room2});
     });
@@ -77,7 +79,6 @@ $ (function(){
 
       //assigning room id to roomId variable. which helps in one-to-one and group chat.
       roomId = room;
-      console.log("roomId : "+ roomId);
       //event to get chat history on button click or as room is set.
       socket.emit('old-msg-init',{room:roomId,username:username});
   

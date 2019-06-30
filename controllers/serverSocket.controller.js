@@ -22,7 +22,7 @@ module.exports.sockets = function(http) {
     var ioMsg = io.of('/chat');
     var userSocket = {};
     var userList = {};
-    var idList = [];
+    var idList = {};
 
     //Connect socket.io
     ioMsg.on('connection', function(socket) {
@@ -166,7 +166,7 @@ module.exports.sockets = function(http) {
             //console.log(result);
             for (var i = 0; i < result.length; i++) {
                 userList[result[i].name] = "Offline";
-                idList.push(result[i]._id);
+                idList[result[i].name] = result[i]._id;
             }
             onlineUserList();
             }

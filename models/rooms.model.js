@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-mongoose.set('debug', true);
-mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
-
 var roomSchema = new Schema({
 
   name1 : {type:String,default:"",required:true},

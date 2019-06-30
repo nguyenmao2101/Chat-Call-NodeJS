@@ -10,7 +10,6 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const mongoStore = require('connect-mongo')(session);
 
-var userRoutes = require('./routes/user.routes');
 var signupRoutes = require('./routes/signup.routes');
 var loginRoutes = require('./routes/login.routes,');
 var logout = require('./routes/logout.route');
@@ -22,10 +21,16 @@ var app = express();
 var server = require('http').createServer(app);
 require('./public/javascript/chat/server.js').sockets(server);
 
+//connect to mongodb database
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
+mongoose.connection.once('open', () => {
+    console.log("Database Connection Established Successfully!");
+});
+
 //Session init
 var sessionInit = session({
     name : 'userCookie',
-    secret : 'uit-messages',
+    secret : process.env.SECRET,
     resave : true,
     httpOnly : true,
     saveUninitialized: true,
@@ -48,9 +53,8 @@ app.set('view engine', 'ejs');
 app.set('views', './views')
 
 /*START MAIN ROUTES*/
-app.get('/', authMiddlewares.requireAuth, userRoutes);
+app.get('/', authMiddlewares.requireAuth, loginRoutes);
 
-app.use('/dashboard', authMiddlewares.requireAuth, userRoutes);
 app.use('/videocall', authMiddlewares.requireAuth, videoCall);
 app.use('/chat', authMiddlewares.requireAuth, chat);
 

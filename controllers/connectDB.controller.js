@@ -25,3 +25,14 @@ module.exports.addUser = async (req, res) => {
     })
     res.redirect('/login');
 }
+
+module.exports.getNameUserByID = async (req, res) => {
+    try {
+        var info = await Users.findOne()
+        .select('name')
+        .where('_id').equals(req.params.id);
+        res.send(info.name);
+    } catch (e){
+        console.log(e);
+    }
+}

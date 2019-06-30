@@ -17,8 +17,14 @@
               <!-- Icon-->
               <div class="fadeIn first"><img id="icon" src="images/chat/logo.png" alt="User Icon"></div>
               <!-- Login Form-->
-              <form action="/login" method="POST"><input class="fadeIn second" id="login" type="email" name="email" placeholder="Email" required="required"><input class="fadeIn third" id="password" type="password" name="password" placeholder="Mật khẩu"><input class="fadeIn fourth" type="submit"
-                      value="Đăng nhập"></form>
+              <form action="/login" method="POST">
+                <% err = typeof err !== 'string' ? "" : err %>
+                    <% if(err){ %>
+                        <div class="alert alert-danger notify"> <%= err%> </div>
+                    <% } %>
+                <input class="fadeIn second" id="login" type="email" name="email" placeholder="Email" required="required">
+                <input class="fadeIn third" id="password" type="password" name="password" placeholder="Mật khẩu">
+                <input class="fadeIn fourth" type="submit" value="Đăng nhập"></form>
               <!-- Remind Passowrd-->
               <div id="formFooter"><a class="underlineHover" href="#">Quên mật khẩu?</a><a class="underlineHover" href="/signup">Đăng kí</a></div>
           </div>

@@ -16,6 +16,7 @@ var logout = require('./routes/logout.route');
 var authMiddlewares = require('./middlewares/auth.middle');
 var videoCall = require('./routes/videocall.routes');
 var chat = require('./routes/chat.route');
+var userRoutes = require('./routes/user.routes');
 
 var app = express();
 var server = require('http').createServer(app);
@@ -57,6 +58,7 @@ app.get('/', authMiddlewares.requireAuth, loginRoutes);
 
 app.use('/videocall', authMiddlewares.requireAuth, videoCall);
 app.use('/chat', authMiddlewares.requireAuth, chat);
+app.use('/user', authMiddlewares.requireAuth, userRoutes);
 
 app.use('/signup', signupRoutes);
 app.use('/login', loginRoutes);

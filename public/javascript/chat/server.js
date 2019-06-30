@@ -81,7 +81,7 @@ module.exports.sockets = function(http) {
         }
 
         //Show messages
-        socket.on('detail-msg', function(data) {
+        socket.on('send-msg', function(data) {
 
             //emits event to save chat to database.
             eventEmitter.emit('save-msg', {
@@ -131,9 +131,9 @@ module.exports.sockets = function(http) {
           if (err) {
             console.log("Error : " + err);
           } else if (result == undefined || result == null || result == "") {
-            console.log("Chat Is Not Saved.");
+            console.log("Messages is not saved.");
           } else {
-            console.log("Chat Saved.");
+            console.log(result);
           }
         });
     });
@@ -143,8 +143,6 @@ module.exports.sockets = function(http) {
         msgModel.find({})
         .where('room').equals(data.room)
         .sort('-createdOn')
-        .skip(data.msgCount)
-        .lean()
         .limit(5)
         .exec(function(err, result) {
           if (err) {

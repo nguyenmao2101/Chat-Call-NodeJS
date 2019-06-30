@@ -19,7 +19,7 @@ var chat = require('./routes/chat.route');
 
 var app = express();
 var server = require('http').createServer(app);
-require('./public/javascript/chat/server.js').sockets(server);
+require('./controllers/serverSocket.controller.js').sockets(server);
 
 //connect to mongodb database
 mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});

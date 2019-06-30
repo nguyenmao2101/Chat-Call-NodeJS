@@ -5,9 +5,9 @@ const _ = require('lodash');
 const eventEmitter = new events.EventEmitter();
 
 //Add models
-require('../../../models/messages.model');
-require('../../../models/rooms.model');
-require('../../../models/users.model');
+require('../models/messages.model');
+require('../models/rooms.model');
+require('../models/users.model');
 
 //using mongoose Schema models
 var usersModel = mongoose.model('Users');
@@ -22,6 +22,7 @@ module.exports.sockets = function(http) {
     var ioMsg = io.of('/chat');
     var userSocket = {};
     var userList = {};
+    var idList = {};
 
     //Connect socket.io
     ioMsg.on('connection', function(socket) {
@@ -48,7 +49,7 @@ module.exports.sockets = function(http) {
                 }
               }
               //For popping connection message.
-              ioMsg.emit('onlineList', userList);
+              ioMsg.emit('onlineList', userList, idList);
             }
         });
 
@@ -81,7 +82,7 @@ module.exports.sockets = function(http) {
         }
 
         //Show messages
-        socket.on('detail-msg', function(data) {
+        socket.on('send-msg', function(data) {
 
             //emits event to save chat to database.
             eventEmitter.emit('save-msg', {
@@ -110,7 +111,7 @@ module.exports.sockets = function(http) {
             _.unset(userSocket, socket.username);
             userList[socket.username] = "Offline";
     
-            ioMsg.emit('onlineList', userList);
+            ioMsg.emit('onlineList', userList, idList);
         });
     });
 
@@ -131,9 +132,9 @@ module.exports.sockets = function(http) {
           if (err) {
             console.log("Error : " + err);
           } else if (result == undefined || result == null || result == "") {
-            console.log("Chat Is Not Saved.");
+            console.log("Messages is not saved.");
           } else {
-            console.log("Chat Saved.");
+            console.log(result);
           }
         });
     });
@@ -143,8 +144,6 @@ module.exports.sockets = function(http) {
         msgModel.find({})
         .where('room').equals(data.room)
         .sort('-createdOn')
-        .skip(data.msgCount)
-        .lean()
         .limit(5)
         .exec(function(err, result) {
           if (err) {
@@ -159,7 +158,7 @@ module.exports.sockets = function(http) {
     //listening for get-all-users event. creating list of all users.
     eventEmitter.on('get-all-users', function() {
         usersModel.find({})
-        .select('name')
+        .select('_id name')
         .exec(function(err, result) {
             if (err) {
             console.log("Error : " + err);
@@ -167,6 +166,7 @@ module.exports.sockets = function(http) {
             //console.log(result);
             for (var i = 0; i < result.length; i++) {
                 userList[result[i].name] = "Offline";
+                idList[result[i].name] = result[i]._id;
             }
             onlineUserList();
             }

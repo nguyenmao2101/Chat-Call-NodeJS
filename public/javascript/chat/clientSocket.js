@@ -3,10 +3,13 @@ $ (function(){
     var socket = io('/chat');
   
     var username = document.getElementById('me').innerHTML;
-    var msgCount = 0; //counting total number of messages displayed.
+    var id_username = $('#id_me').val();
+    console.log('my id: ' + id_username);
+    var name_receiver;
     var roomId;//variable for setting room.
     var toUser;
     var stt = -1;
+    var list_id;
     $('#chat1').hide();
 
     //passing data on connection.
@@ -16,9 +19,10 @@ $ (function(){
     });
 
     //receiving onlineList
-    socket.on('onlineList',function(list){
+    socket.on('onlineList',function(list, idList){
       $('#list').empty();
       $('#list_msg').empty();
+      list_id = idList;
       stt = -1;
       for (var user in list){
         //setting txt1. shows users button.
@@ -56,12 +60,14 @@ $ (function(){
       $('#list_detail_msg').empty();
       $('#receiverInfo').empty();
       $('#chat1').show();
-      msgCount = 0;
       
-      toUser = document.getElementById('friend_id_' + $(this).index()).innerHTML;
-      $('#receiverInfo').append($('<h5>').append(toUser)).append('<span>Ho Chi Minh</span>');
-      var room1 = username + '-' + toUser;
-      var room2 = toUser + '-' + username;
+      name_receiver = document.getElementById('friend_id_' + $(this).index()).innerHTML;
+      toUser = list_id[name_receiver];
+      $('#receiverInfo').append($('<h5>').append(name_receiver)).append('<span>Ho Chi Minh</span>');
+      $('#videoCall').val(toUser);
+      eva.replace();
+      var room1 = id_username + '-' + toUser;
+      var room2 = toUser + '-' + id_username;
       //event to set room and join.
       socket.emit('set-room', {name1: room1, name2: room2});
     });
@@ -70,13 +76,11 @@ $ (function(){
     socket.on('set-room-user',function(room){
       //empty messages.
       $('#list_detail_msg').empty();
-      msgCount = 0;
 
       //assigning room id to roomId variable. which helps in one-to-one and group chat.
       roomId = room;
-      console.log("roomId : "+ roomId);
       //event to get chat history on button click or as room is set.
-      socket.emit('old-msg-init',{room:roomId,username:username,msgCount:msgCount});
+      socket.emit('old-msg-init',{room:roomId,username:username});
   
     }); //end of set-room event.
   
@@ -86,7 +90,7 @@ $ (function(){
       if(data.room == roomId){
         if(data.result.length != 0){
 
-          for (var i = 0;i < data.result.length; i++) {
+          for (var i = data.result.length - 1; i >= 0; i--) {
             //styling of chat message.
             if(data.result[i].msgFrom == username) {
               //styling of chat message.
@@ -102,16 +106,7 @@ $ (function(){
               //showing chat in chat box.
               $('#list_detail_msg').append($('<li style="flex-direction: row-reverse; justify-content: flex-end; text-align: left">').append($(image), $(content)));
             }
-            msgCount++;
-            if(msgCount <= 5){
-              $('#list_detail_msg').animate({scrollTop: $('li').last().offset().top});
-            }
-
           } 
-        }
-
-        if(msgCount <= 5){
-          $('#list_detail_msg').animate({scrollTop: $('li').last().offset().top});
         }
       }
   
@@ -119,7 +114,7 @@ $ (function(){
   
     //sending message.
     $('#form_msg').submit(function(){
-      socket.emit('detail-msg',{msg:$('#input_msg').val(),msgTo:toUser,date:Date.now()});
+      socket.emit('send-msg',{msg:$('#input_msg').val(),msgTo: name_receiver,date:Date.now()});
       $('#input_msg').val("");
       return false;
     });
@@ -151,15 +146,11 @@ $ (function(){
             //showing chat in chat box.
             $('#list_detail_msg').append($('<li style="flex-direction: row-reverse; justify-content: flex-end; text-align: left">').append($(image), $(content)));
           }
-          msgCount++;
-          if(msgCount == 8){
-            $('#list_detail_msg').animate({scrollTop: $('li').last().offset().top});
-          }
-    });
+        }
+    );
   
     //on disconnect event.
     //passing data on connection.
     socket.on('disconnect',function(){
-      msgCount = 0;
     });
 });

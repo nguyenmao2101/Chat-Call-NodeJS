@@ -1,8 +1,5 @@
 const mongoose = require('mongoose');
 
-mongoose.set('debug', true);
-mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
-
 var usersSchema = new mongoose.Schema({
     name: String,
     email: String,

@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-mongoose.set('debug', true);
-mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
-
 var msgSchema = new Schema({
 
   msgFrom : {type:String,default:"",required:true},
@@ -14,5 +11,5 @@ var msgSchema = new Schema({
 
 });
 
-var Msg = mongoose.model('Msg', msgSchema, "Messages");
+var Msg = mongoose.model('Messages', msgSchema, "Messages");
 module.exports = Msg;

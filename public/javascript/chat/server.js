@@ -11,7 +11,7 @@ require('../../../models/users.model');
 
 //using mongoose Schema models
 var usersModel = mongoose.model('Users');
-var msgModel = mongoose.model('Msg');
+var msgModel = mongoose.model('Messages');
 var roomModel = mongoose.model('Rooms');
 
 //Socket.io
@@ -26,14 +26,14 @@ module.exports.sockets = function(http) {
     //Connect socket.io
     ioMsg.on('connection', function(socket) {
         socket.on('set-user-data', function(username) {
-            console.log(username+ " logged in");
+            console.log(username+ ' đã đăng nhập');
 
             //Store username
             socket.username = username;
             //Store sessionId
-            userSocket[socket.username] = socket._id;
+            userSocket[socket.username] = socket.id;
       
-            socket.broadcast.emit('broadcast',{ description: username + ' logged in'});
+            socket.broadcast.emit('broadcast',{ description: username + ' đã đăng nhập'});
 
             //Get all users list
             eventEmitter.emit('get-all-users');
@@ -63,7 +63,7 @@ module.exports.sockets = function(http) {
                 socket.room = room;
                 console.log("room : " + socket.room);
                 socket.join(socket.room);
-                ioMsg.to(userSocket[socket.username]).emit('set-room', socket.room);
+                ioMsg.to(userSocket[socket.username]).emit('set-room-user', socket.room);
             };
         });
 
@@ -71,15 +71,10 @@ module.exports.sockets = function(http) {
         socket.on('old-msg-init', function(data) {
             eventEmitter.emit('read-msg', data);
         });
-    
-        //emits event to read old chats from database.
-        socket.on('old-msg', function(data) {
-            eventEmitter.emit('read-msg', data);
-        });
 
         //Send old messages to room.
         oldMsg = function(result, username, room) {
-            ioMsg.to(userSocket[username]).emit('old-Msg', {
+            ioMsg.to(userSocket[username]).emit('old-msg', {
                 result: result,
                 room: room
             });
@@ -108,10 +103,8 @@ module.exports.sockets = function(http) {
         //for popping disconnection message.
         socket.on('disconnect', function() {
 
-            console.log(socket.username+ " logged out");
-            socket.broadcast.emit('broadcast',{ description: socket.username + ' logged out'});
-
-            console.log("Chat disconnected.");
+            console.log(socket.username+ ' đã đăng xuất');
+            socket.broadcast.emit('broadcast',{ description: socket.username + ' đã đăng xuất'});
             
             //Remove user from userSocket when user disconnnected with server
             _.unset(userSocket, socket.username);
@@ -147,20 +140,19 @@ module.exports.sockets = function(http) {
 
     //reading chat from database.
     eventEmitter.on('read-msg', function(data) {
-
         msgModel.find({})
         .where('room').equals(data.room)
         .sort('-createdOn')
         .skip(data.msgCount)
         .lean()
-        .limit(200)
+        .limit(5)
         .exec(function(err, result) {
-            if (err) {
-                console.log("Error : " + err);
-            } else {
-                //calling function which emits event to client to show messages.
-                oldMsg(result, data.username, data.room);
-            }
+          if (err) {
+            console.log("Error : " + err);
+          } else {
+            //calling function which emits event to client to show chats.
+            oldMsg(result, data.username, data.room);
+          }
         });
     });
 

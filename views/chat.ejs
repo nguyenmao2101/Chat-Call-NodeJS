@@ -15,6 +15,7 @@
 		<link href="stylesheets/css/chat/custom.css" type="text/css" rel="stylesheet">
 		<!-- Favicon -->
 		<link href="images/chat/logo.png" type="image/png" rel="icon">
+		<script type="text/javascript" src="/javascript/build_in_libs/peerjs.min.js"></script>
 	</head>
 	<body>
 		<!-- Layout -->
@@ -29,7 +30,7 @@
 						<li><a href="#notifications" data-toggle="tab" role="tab" aria-controls="notifications" aria-selected="false"><i data-eva="bell" data-eva-animation="pulse"></i></a></li>
 						<li><a href="#settings" data-toggle="tab" role="tab" aria-controls="settings" aria-selected="false"><i data-eva="settings" data-eva-animation="pulse"></i></a></li>
 						<li><button type="button" class="btn mode"><i data-eva="bulb" data-eva-animation="pulse"></i></button></li>
-						<li><button id="id_me" type="button" class="btn" value="<%= user._id %>"><img src="images/chat/avatars/default.svg" alt="avatar"><i data-eva="radio-button-on"></i></button></li>
+						<li><button id="id_me" type="button" class="btn" value="<%= user._id %>"><img src="images/chat/avatars/default.svg" id="userInfo" alt="<%= user.name %>"><i data-eva="radio-button-on"></i></button></li>
 					</ul>
 				</div>
 			</nav>
@@ -136,7 +137,7 @@
 											<div id="receiverInfo" class="content"></div>
 										</div>
 										<ul>
-											<li><button id="videoCall" type="button" class="btn"><i data-eva="video" data-eva-animation="pulse"></i></button></li>
+											<li><button id="videoCall" type="button" class="btn" onclick="Call(this)"><i data-eva="video" data-eva-animation="pulse"></i></button></li>
 											<li><button type="button" class="btn"><i data-eva="phone" data-eva-animation="pulse"></i></button></li>
 											<li><button type="button" class="btn" data-toggle="modal" data-target="#compose"><i data-eva="person-add" data-eva-animation="pulse"></i></button></li>
 											<li><button type="button" class="btn" data-utility="open"><i data-eva="info" data-eva-animation="pulse"></i></button></li>
@@ -419,15 +420,19 @@
 			</div>
 			<!-- End of Compose -->
 		</div>
+		
+		<!-- Layout -->
+		<script src="javascript/build_in_libs/jquery-3.4.1.min.js"></script>
+		<script src="javascript/chat/vendor/popper.min.js"></script>
+		<script src="javascript/chat/vendor/feather.min.js"></script>
+		<script src="javascript/chat/vendor/eva.min.js"></script>
+		<script src="javascript/chat/vendor/bootstrap.min.js"></script>
+		<script src="javascript/chat/vendor/moment.min.js"></script>
+		<script src="javascript/chat/vendor/socket.io-1.7.3.js"></script>
+		<script src="javascript/chat/swipe.min.js"></script>
+		<script src="javascript/chat/clientSocket.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script type="text/javascript" src="/javascript/usersEvent.client.js"></script>
 	</body>
-	<!-- Layout -->
-	<script src="javascript/build_in_libs/jquery-3.4.1.min.js"></script>
-	<script src="javascript/chat/vendor/popper.min.js"></script>
-	<script src="javascript/chat/vendor/feather.min.js"></script>
-	<script src="javascript/chat/vendor/eva.min.js"></script>
-	<script src="javascript/chat/vendor/bootstrap.min.js"></script>
-	<script src="javascript/chat/vendor/moment.min.js"></script>
-	<script src="javascript/chat/vendor/socket.io-1.7.3.js"></script>
-	<script src="javascript/chat/swipe.min.js"></script>
-	<script src="javascript/chat/clientSocket.js"></script>
+	
 </html>																																																										

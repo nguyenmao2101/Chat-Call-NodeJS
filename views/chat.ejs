@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-	
-<!-- Mirrored from grayshift.io/themes/swipe/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 02 Jun 2019 19:43:03 GMT -->
 <head>
 		<meta charset="utf-8">
-		<title>Swipe – The Simplest Chat Platform</title>
+		<title>Real Times App</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="#">
 		<!-- Bootstrap core CSS -->
@@ -138,7 +136,7 @@
 											<div id="receiverInfo" class="content"></div>
 										</div>
 										<ul>
-											<li><button type="button" class="btn"><i data-eva="video" data-eva-animation="pulse"></i></button></li>
+											<li><button id="videoCall" type="button" class="btn"><i data-eva="video" data-eva-animation="pulse"></i></button></li>
 											<li><button type="button" class="btn"><i data-eva="phone" data-eva-animation="pulse"></i></button></li>
 											<li><button type="button" class="btn" data-toggle="modal" data-target="#compose"><i data-eva="person-add" data-eva-animation="pulse"></i></button></li>
 											<li><button type="button" class="btn" data-utility="open"><i data-eva="info" data-eva-animation="pulse"></i></button></li>
@@ -201,7 +199,7 @@
 												<li>
 													<ul class="avatars">
 														<li><button class="btn round"><i data-eva="file-text"></i></button></li>
-														<li><a href="#"><img src="images/chat/avatars/dèault.svg" alt="avatar"></a></li>
+														<li><a href="#"><img src="images/chat/avatars/default.svg" alt="avatar"></a></li>
 													</ul>
 													<div class="meta">
 														<a href="#"><h5>workbox.js</h5></a>
@@ -422,9 +420,8 @@
 			<!-- End of Compose -->
 		</div>
 	</body>
-
 	<!-- Layout -->
-	<script src="javascript/chat/vendor/jquery-3.1.1.min.js"></script>
+	<script src="javascript/build_in_libs/jquery-3.4.1.min.js"></script>
 	<script src="javascript/chat/vendor/popper.min.js"></script>
 	<script src="javascript/chat/vendor/feather.min.js"></script>
 	<script src="javascript/chat/vendor/eva.min.js"></script>
@@ -432,6 +429,5 @@
 	<script src="javascript/chat/vendor/moment.min.js"></script>
 	<script src="javascript/chat/vendor/socket.io-1.7.3.js"></script>
 	<script src="javascript/chat/swipe.min.js"></script>
-	<script src="javascript/chat/client.js"></script>
-<!-- Mirrored from grayshift.io/themes/swipe/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 02 Jun 2019 19:43:28 GMT -->
+	<script src="javascript/chat/clientSocket.js"></script>
 </html>																																																										

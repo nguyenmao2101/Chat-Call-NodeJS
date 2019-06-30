@@ -5,9 +5,9 @@ const _ = require('lodash');
 const eventEmitter = new events.EventEmitter();
 
 //Add models
-require('../../../models/messages.model');
-require('../../../models/rooms.model');
-require('../../../models/users.model');
+require('../models/messages.model');
+require('../models/rooms.model');
+require('../models/users.model');
 
 //using mongoose Schema models
 var usersModel = mongoose.model('Users');
@@ -22,6 +22,7 @@ module.exports.sockets = function(http) {
     var ioMsg = io.of('/chat');
     var userSocket = {};
     var userList = {};
+    var idList = [];
 
     //Connect socket.io
     ioMsg.on('connection', function(socket) {
@@ -48,7 +49,7 @@ module.exports.sockets = function(http) {
                 }
               }
               //For popping connection message.
-              ioMsg.emit('onlineList', userList);
+              ioMsg.emit('onlineList', userList, idList);
             }
         });
 
@@ -110,7 +111,7 @@ module.exports.sockets = function(http) {
             _.unset(userSocket, socket.username);
             userList[socket.username] = "Offline";
     
-            ioMsg.emit('onlineList', userList);
+            ioMsg.emit('onlineList', userList, idList);
         });
     });
 
@@ -157,7 +158,7 @@ module.exports.sockets = function(http) {
     //listening for get-all-users event. creating list of all users.
     eventEmitter.on('get-all-users', function() {
         usersModel.find({})
-        .select('name')
+        .select('_id name')
         .exec(function(err, result) {
             if (err) {
             console.log("Error : " + err);
@@ -165,6 +166,7 @@ module.exports.sockets = function(http) {
             //console.log(result);
             for (var i = 0; i < result.length; i++) {
                 userList[result[i].name] = "Offline";
+                idList.push(result[i]._id);
             }
             onlineUserList();
             }

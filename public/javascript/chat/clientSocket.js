@@ -6,6 +6,7 @@ $ (function(){
     var roomId;//variable for setting room.
     var toUser;
     var stt = -1;
+    var list_id;
     $('#chat1').hide();
 
     //passing data on connection.
@@ -15,9 +16,10 @@ $ (function(){
     });
 
     //receiving onlineList
-    socket.on('onlineList',function(list){
+    socket.on('onlineList',function(list, idList){
       $('#list').empty();
       $('#list_msg').empty();
+      list_id = idList;
       stt = -1;
       for (var user in list){
         //setting txt1. shows users button.
@@ -56,8 +58,11 @@ $ (function(){
       $('#receiverInfo').empty();
       $('#chat1').show();
       
-      toUser = document.getElementById('friend_id_' + $(this).index()).innerHTML;
-      $('#receiverInfo').append($('<h5>').append(toUser)).append('<span>Ho Chi Minh</span>');
+      toUser = list_id[$(this).index()];
+      var name_receiver = document.getElementById('friend_id_' + $(this).index()).innerHTML;
+      $('#receiverInfo').append($('<h5>').append(name_receiver)).append('<span>Ho Chi Minh</span>');
+      $('#videoCall').val(toUser);
+      eva.replace();
       var room1 = username + '-' + toUser;
       var room2 = toUser + '-' + username;
       //event to set room and join.

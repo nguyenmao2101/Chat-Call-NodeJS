@@ -45,7 +45,7 @@
         <li>Install necessaries: NodeJS, Git </li>
         <li>Clone this reposiory</li>
         <li>Run command: <b>npm install</b>
-        <li>On browser, open <b><i>localhost:1337</i>'
+        <li>On browser, open <b><i>localhost:1337</i>
       </ul>
      </li>
   </ul>

@@ -6,7 +6,7 @@ var checkUserExists = async (userEmail) => {
     var existsUser = await Users.findOne({ email: userEmail });
 
     console.log(existsUser);
-    if (existsUser.length == 0) {
+    if (!existsUser) {
         return false;
     }
     return existsUser;
@@ -27,7 +27,8 @@ module.exports.identityUser = async (req, res) => {
         res.render('login_Page', { err: "Password incorrect!!!" });
         return; 
     }
-    res.cookie('userId', existsUser._id, { signed: true });
-    res.redirect('/dashboard');
+    req.session.user = existsUser;
+    delete req.session.user.password;
+    res.redirect('/chat');
 }
 

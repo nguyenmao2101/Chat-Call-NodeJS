@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+      <link id="bootstrap-css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/stylesheets/login-signup_form.css" type="text/css">
+      <link rel="shortcut icon" href="">
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+      <div class="wrapper fadeInDown">
+          <div id="formContent">
+              <!-- Tabs Titles-->
+              <!-- Icon-->
+              <div class="fadeIn first"><img id="icon" src="images/chat/logo.png" alt="User Icon"></div>
+              <!-- Login Form-->
+              <form action="/signup" method="POST"><input class="fadeIn second" id="name" type="text" name="name" placeholder="Tên hiển thị" required="required"><input class="fadeIn third" id="signup" type="email" name="email" placeholder="Email" required="required"><input class="fadeIn fourth" id="password"
+                      type="password" name="password" placeholder="Mật khẩu" required="required"><input class="fadeIn fifth" type="submit" value="Đăng kí"></form>
+              <!-- Remind Passowrd-->
+              <div id="formFooter"><span>Đã có tài khoản? </span><a class="underlineHover" href="/login">Đăng nhập</a></div>
+          </div>
+      </div>
+  </body>
+
+</html>

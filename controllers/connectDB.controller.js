@@ -2,12 +2,6 @@ var Users = require('../models/users.model');
 var securePassword = require('./secure.controller');
 var ObjectID = require('mongodb').ObjectID;
 
-module.exports.getUsers = async (req, res) => {
-    var list_users = await Users.find();
-    res.render('users_Page', { users: list_users })
-}
-
-
 module.exports.addUser = async (req, res) => {
     var allow = await Users.find({ email: req.body.email });
     if (allow.length != 0) {
@@ -20,7 +14,9 @@ module.exports.addUser = async (req, res) => {
         name: req.body.name, 
         email: req.body.email,
         password: securePassword.encryptPassword(req.body.password), 
-        avatar: ""
+        avatar: "",
+        createdOn: Date.now(),
+        lastActive: Date.now()
     });
 
     infoNewUser.save((err, res) => {

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+<!-- Mirrored from grayshift.io/themes/swipe/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 02 Jun 2019 19:43:03 GMT -->
+<head>
+		<meta charset="utf-8">
+		<title>Swipe – The Simplest Chat Platform</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="#">
+		<!-- Bootstrap core CSS -->
+		<link href="stylesheets/css/chat/bootstrap.min.css" type="text/css" rel="stylesheet">
+		<!-- Swipe core CSS -->
+		<link href="stylesheets/css/chat/swipe.min.css" type="text/css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="stylesheets/css/chat/custom.css" type="text/css" rel="stylesheet">
+		<!-- Favicon -->
+		<link href="images/chat/logo.png" type="image/png" rel="icon">
+	</head>
+	<body>
+		<!-- Layout -->
+		<div class="layout">
+			<!-- Start of Navigation -->
+			<nav class="navigation">
+				<div class="container">
+					<a href="#" class="logo" rel="home"><img src="images/chat/logo.png" alt="logo"></a>
+					<ul class="nav" role="tablist">
+						<li><a href="#conversations" class="active" data-toggle="tab" role="tab" aria-controls="conversations" aria-selected="true"><i data-eva="message-square" data-eva-animation="pulse"></i></a></li>
+						<li><a href="#friends" data-toggle="tab" role="tab" aria-controls="friends" aria-selected="false"><i data-eva="people" data-eva-animation="pulse"></i></a></li>
+						<li><a href="#notifications" data-toggle="tab" role="tab" aria-controls="notifications" aria-selected="false"><i data-eva="bell" data-eva-animation="pulse"></i></a></li>
+						<li><a href="#settings" data-toggle="tab" role="tab" aria-controls="settings" aria-selected="false"><i data-eva="settings" data-eva-animation="pulse"></i></a></li>
+						<li><button type="button" class="btn mode"><i data-eva="bulb" data-eva-animation="pulse"></i></button></li>
+						<li><button type="button" class="btn"><img src="images/chat/avatars/default.svg" alt="avatar"><i data-eva="radio-button-on"></i></button></li>
+					</ul>
+				</div>
+			</nav>
+			<!-- End of Navigation -->
+			<!-- Start of Sidebar -->
+			<div class="sidebar">
+				<div class="container">
+					<div class="tab-content">
+						<!-- Start of Discussions -->
+						<div class="tab-pane fade show active" id="conversations" role="tabpanel">
+							<div class="top">
+								<form>
+									<input type="search" class="form-control" placeholder="Tìm kiếm">
+									<button type="submit" class="btn prepend"><i data-eva="search"></i></button>
+								</form>
+								<ul class="nav" role="tablist">
+									<li><a href="#direct" class="filter-btn active" data-toggle="tab" data-filter="direct">Cá nhân</a></li>
+									<li><a href="#groups" class="filter-btn" data-toggle="tab" data-filter="groups">Nhóm</a></li>
+								</ul>
+							</div>
+							<div class="middle">
+								<h4>Tin nhắn riêng</h4>
+								<button type="button" class="btn round" data-toggle="modal" data-target="#compose"><i data-eva="edit-2"></i></button>
+								<hr>
+								<ul id="list_msg" class="nav discussions" role="tablist"></ul>
+							</div>
+						</div>
+						<!-- End of Discussions -->
+						<!-- Start of Friends -->
+						<div class="tab-pane fade" id="friends" role="tabpanel">
+							<div class="top">
+								<form>
+									<input type="search" class="form-control" placeholder="Tìm kiếm">
+									<button type="submit" class="btn prepend"><i data-eva="search"></i></button>
+								</form>
+							</div>
+							<div class="middle">
+								<h4>Bạn bè</h4>
+								<hr>
+								<ul id="list" class="users"></ul>
+							</div>
+						</div>
+						<!-- End of Friends -->
+						<!-- Start of Notifications -->
+						<div class="tab-pane fade" id="notifications" role="tabpanel">
+							<div class="top">
+								<form>
+									<input type="search" class="form-control" placeholder="Tìm kiếm">
+									<button type="submit" class="btn prepend"><i data-eva="search"></i></button>
+								</form>
+							</div>
+							<div class="middle">
+								<h4>Thông báo</h4>
+								<hr>
+								<ul class="notifications">
+									<li>
+										<div class="round"><i data-eva="person-done"></i></div>
+										<p>Bạn đã đăng kí thành công</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- End of Notifications -->
+						<!-- Start of Settings -->
+						<div class="settings tab-pane fade" id="settings" role="tabpanel">
+							<div class="user">
+								<label>
+									<input type="file">
+									<img src="images/chat/avatars/default.svg" alt="avatar">
+								</label>
+								<div class="content">
+									<h5 id="me"><%= user.name %></h5>
+									<span>Ho Chi Minh</span>
+								</div>
+							</div>
+							<h4>Thiết lập</h4>
+							<ul>
+								<li>
+									<a href="/logout" class="headline">
+										<div class="title">
+											<h5>Đăng xuất</h5>
+										</div>
+									</a>
+								</li>
+								<!-- End of Appearance -->
+							</ul>
+						</div>
+						<!-- End of Settings -->
+					</div>
+				</div>
+			</div>
+			<!-- End of Sidebar -->
+			<!-- Start of Chat -->
+			<div class="chat">
+				<div class="tab-content">
+					<!-- Start of Chat Room -->
+					<div class="tab-pane fade show active" id="chat1" role="tabpanel">
+						<div class="item">
+							<div class="content">
+								<div class="container">
+									<div class="top">
+										<div class="headline">
+											<img src="images/chat/avatars/default.svg" alt="avatar">
+											<div id="receiverInfo" class="content"></div>
+										</div>
+										<ul>
+											<li><button type="button" class="btn"><i data-eva="video" data-eva-animation="pulse"></i></button></li>
+											<li><button type="button" class="btn"><i data-eva="phone" data-eva-animation="pulse"></i></button></li>
+											<li><button type="button" class="btn" data-toggle="modal" data-target="#compose"><i data-eva="person-add" data-eva-animation="pulse"></i></button></li>
+											<li><button type="button" class="btn" data-utility="open"><i data-eva="info" data-eva-animation="pulse"></i></button></li>
+											<li><button type="button" class="btn round" data-chat="open"><i data-eva="arrow-ios-back"></i></button></li>
+											<li><button type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-eva="more-vertical" data-eva-animation="pulse"></i></button>
+												<div class="dropdown-menu">
+													<button type="button" class="dropdown-item"><i data-eva="video"></i>Video call</button>
+													<button type="button" class="dropdown-item"><i data-eva="phone"></i>Voice call</button>
+													<button type="button" class="dropdown-item" data-toggle="modal" data-target="#compose"><i data-eva="person-add"></i>Add people</button>
+													<button type="button" class="dropdown-item" data-utility="open"><i data-eva="info"></i>Information</button>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<!-- Show message -->
+								<div class="middle" id="scroll">
+									<div class="container">
+										<ul id="list_detail_msg"></ul>
+									</div>
+								</div>
+								<!--Input message -->
+								<div class="container">
+									<div class="bottom">
+										<form id="form_msg" action="">
+											<textarea id="input_msg" class="form-control" placeholder="Nhập tin nhắn văn bản..." rows="1"></textarea>
+											<button id="submit_msg" type="submit" class="btn prepend"><i data-eva="paper-plane"></i></button>
+										</form>
+									</div>
+								</div>
+							</div>						
+							<!-- Start of Utility -->
+							<div class="utility">
+								<div class="container">
+									<button type="button" class="close" data-utility="open"><i data-eva="close"></i></button>
+									<button type="button" class="btn primary" data-toggle="modal" data-target="#compose">Thêm người dùng</button>
+									<ul class="nav" role="tablist">
+										<li><a href="#users" class="active" data-toggle="tab" role="tab" aria-controls="users" aria-selected="true">Người dùng</a></li>
+										<li><a href="#files" data-toggle="tab" role="tab" aria-controls="files" aria-selected="false">Tập tin</a></li>
+									</ul>
+									<div class="tab-content">
+										<!-- Start of Users -->
+										<div class="tab-pane fade active show" id="users" role="tabpanel">
+											<h4>Người dùng</h4>
+											<hr>
+											<ul class="users"></ul>
+											</ul>
+										</div>
+										<!-- End of Users -->
+										<!-- Start of Files -->
+										<div class="tab-pane fade" id="files" role="tabpanel">
+											<h4>Tập tin</h4>
+											<div class="upload">
+												<label>
+													<input type="file">
+													<span>Kéo/thả tập tin ở đây</span>
+												</label>
+											</div>
+											<ul class="files">
+												<li>
+													<ul class="avatars">
+														<li><button class="btn round"><i data-eva="file-text"></i></button></li>
+														<li><a href="#"><img src="images/chat/avatars/dèault.svg" alt="avatar"></a></li>
+													</ul>
+													<div class="meta">
+														<a href="#"><h5>workbox.js</h5></a>
+														<span>2kb</span>
+													</div>
+													<div class="dropdown">
+														<button type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-eva="more-vertical"></i></button>
+														<div class="dropdown-menu dropdown-menu-right">
+															<button type="button" class="dropdown-item">Sửa</button>
+															<button type="button" class="dropdown-item">Chia sẻ</button>
+															<button type="button" class="dropdown-item">Xoá</button>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- End of Files -->
+									</div>
+								</div>
+							</div>
+							<!-- End of Utility -->
+						</div>
+					</div>
+					<!-- End of Chat Room -->
+					<!-- Start of Chat Room -->
+					<div class="tab-pane fade" id="chat2" role="tabpanel">
+						<div class="item">
+							<div class="content">
+								<div class="container">
+									<div class="top">
+										<div class="headline">
+											<img src="images/chat/avatars/avatar-group-1.jpg" alt="avatar">
+											<div class="content">
+												<h5>UIT Group</h5>
+												<span>Tin nhắn nhóm</span>
+											</div>
+										</div>
+										<ul>
+											<li><button type="button" class="btn"><i data-eva="video" data-eva-animation="pulse"></i></button></li>
+											<li><button type="button" class="btn"><i data-eva="phone" data-eva-animation="pulse"></i></button></li>
+											<li><button type="button" class="btn" data-toggle="modal" data-target="#compose"><i data-eva="person-add" data-eva-animation="pulse"></i></button></li>
+											<li><button type="button" class="btn" data-utility="open"><i data-eva="info" data-eva-animation="pulse"></i></button></li>
+											<li><button type="button" class="btn round" data-chat="open"><i data-eva="arrow-ios-back"></i></button></li>
+											<li><button type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-eva="more-vertical" data-eva-animation="pulse"></i></button>
+												<div class="dropdown-menu">
+													<button type="button" class="dropdown-item"><i data-eva="video"></i>Video call</button>
+													<button type="button" class="dropdown-item"><i data-eva="phone"></i>Voice call</button>
+													<button type="button" class="dropdown-item" data-toggle="modal" data-target="#compose"><i data-eva="person-add"></i>Add people</button>
+													<button type="button" class="dropdown-item" data-utility="open"><i data-eva="info"></i>Information</button>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="middle">
+									<div class="container">
+										<ul>
+											<li>
+												<img src="images/chat/avatars/avatar-male-3.jpg" alt="avatar">
+												<div class="content">
+													<div class="message">
+														<div class="bubble">
+															<p>Chào UIT</p>
+														</div>
+													</div>
+													<span>07:30am</span>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="container">
+									<div class="bottom">
+										<form>
+											<textarea class="form-control" placeholder="Nhập tin nhắn văn bản..." rows="1"></textarea>
+											<button type="submit" class="btn prepend"><i data-eva="paper-plane"></i></button>
+										</form>
+									</div>
+								</div>
+							</div>
+							<!-- Start of Utility -->
+							<div class="utility">
+								<div class="container">
+									<button type="button" class="close" data-utility="open"><i data-eva="close"></i></button>
+									<button type="button" class="btn primary" data-toggle="modal" data-target="#compose">Thêm người dùng</button>
+									<ul class="nav" role="tablist">
+										<li><a href="#users2" class="active" data-toggle="tab" role="tab" aria-controls="users2" aria-selected="true">Người dùng</a></li>
+										<li><a href="#files2" data-toggle="tab" role="tab" aria-controls="files2" aria-selected="false">Tập tin</a></li>
+									</ul>
+									<div class="tab-content">
+										<!-- Start of Users -->
+										<div class="tab-pane fade active show" id="users2" role="tabpanel">
+											<h4>Người dùng</h4>
+											<hr>
+											<ul class="users">
+												<li>
+													<div class="status online"><img src="images/chat/avatars/default.svg" alt="avatar"><i data-eva="radio-button-on"></i></div>
+													<div class="content">
+														<h5>Ham Chuwon</h5>
+														<span>Ho Chi Minh</span>
+													</div>
+													<div class="dropdown">
+														<button type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-eva="more-vertical"></i></button>
+														<div class="dropdown-menu dropdown-menu-right">
+															<button type="button" class="dropdown-item">Sửa</button>
+															<button type="button" class="dropdown-item">Chia sẻ</button>
+															<button type="button" class="dropdown-item">Xoá</button>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<!-- End of Users -->
+										<!-- Start of Files -->
+										<div class="tab-pane fade" id="files2" role="tabpanel">
+											<h4>Tập tin</h4>
+											<div class="upload">
+												<label>
+													<input type="file">
+													<span>Kéo/thả tập tin ở đây</span>
+												</label>
+											</div>
+											<ul class="files">
+												<li>
+													<ul class="avatars">
+														<li><button class="btn round"><i data-eva="file-text"></i></button></li>
+														<li><a href="#"><img src="images/chat/avatars/avatar-male-1.jpg" alt="avatar"></a></li>
+													</ul>
+													<div class="meta">
+														<a href="#"><h5>workbox.js</h5></a>
+														<span>2kb</span>
+													</div>
+													<div class="dropdown">
+														<button type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-eva="more-vertical"></i></button>
+														<div class="dropdown-menu dropdown-menu-right">
+															<button type="button" class="dropdown-item">Xoá</button>
+															<button type="button" class="dropdown-item">Chia sẻ</button>
+															<button type="button" class="dropdown-item">Xoá</button>
+														</div>
+													</div>
+												</li>	
+											</ul>
+										</div>
+										<!-- End of Files -->
+									</div>
+								</div>
+							</div>
+							<!-- End of Utility -->
+						</div>
+					</div>
+					<!-- End of Chat Room -->
+				</div>
+			</div>
+			<!-- End of Chat -->
+			<!-- Start of Compose -->
+			<div class="modal fade" id="compose" tabindex="-1" role="dialog" aria-labelledby="compose" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5>Soạn tin nhắn</h5>
+							<button type="button" class="btn round" data-dismiss="modal" aria-label="Close">
+								<i data-eva="close"></i>
+							</button>
+						</div>
+						<div class="modal-body">
+							<ul class="nav" role="tablist">
+								<li><a href="#details" class="active" data-toggle="tab" role="tab" aria-controls="details" aria-selected="true">Chi tiết</a></li>
+								<li><a href="#participants" data-toggle="tab" role="tab" aria-controls="participants" aria-selected="false">Người tham gia</a></li>
+							</ul>
+							<div class="tab-content">
+								<!-- Start of Details -->
+								<div class="details tab-pane fade show active" id="details" role="tabpanel">
+									<form>
+										<div class="form-group">
+											<label>Tiêu đề</label>
+											<input type="text" class="form-control" placeholder="Chủ đề trò chuyện">
+										</div>
+										<div class="form-group">
+											<label>Tin nhắn</label>
+											<textarea class="form-control" placeholder="Hello"></textarea>
+										</div>
+									</form>
+								</div>
+								<!-- End of Details -->
+								<!-- Start of Participants -->
+								<div class="participants tab-pane fade" id="participants" role="tabpanel">
+									<div class="search">
+										<form>
+											<input type="search" class="form-control" placeholder="Tìm kiếm">
+											<button type="submit" class="btn prepend"><i data-eva="search"></i></button>
+										</form>
+									</div>
+									<h4>Người dùng</h4>
+									<hr>
+									<ul class="users">
+										<li>
+											<div class="status online"><img src="images/chat/avatars/default.svg" alt="avatar"><i data-eva="radio-button-on"></i></div>
+											<div class="content">
+												<h5>Ham Chuwon</h5>
+												<span>Ho Chi Minh</span>
+											</div>
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" id="user1">
+												<label class="custom-control-label" for="user1"></label>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<!-- End of Participants -->
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn primary">Soạn</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End of Compose -->
+		</div>
+		<!-- Layout -->
+		<script src="javascript/chat/vendor/jquery-slim.min.js"></script>
+		<script src="javascript/chat/vendor/popper.min.js"></script>
+		<script src="javascript/chat/vendor/feather.min.js"></script>
+		<script src="javascript/chat/vendor/eva.min.js"></script>
+		<script src="javascript/chat/vendor/bootstrap.min.js"></script>
+		<script src="javascript/chat/vendor/moment.min.js"></script>
+		<script src="javascript/chat/vendor/socket.io-1.7.3.js"></script>
+		<script src="javascript/chat/swipe.min.js"></script>
+		<script src="javascript/chat/client.js"></script>
+
+	</body>
+
+<!-- Mirrored from grayshift.io/themes/swipe/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 02 Jun 2019 19:43:28 GMT -->
+</html>																																																										

@@ -15,26 +15,20 @@
         <li>SocketIO Framework for Chatting.</li>
         <li>PeerJS Framework for Calling.</li>
       </ul>
-     </li>
-   </ul>
-   
-  <ul>
+    </li>
     <li>
       <h4>Database:</h4>
       <ul><li>MongoDB (Mongoose module)</li></ul>
     </li>
-  </ul>
-  
-  <ul>
-  <li>
-    <h4> Others:</h4>
-     <ul>
-        <li>EJS for template view engine
-        <li>Javascript (JQuery, AJAX)
-        <li>CSS
-        <li>...
-      </ul>
-  </li>
+    <li>
+      <h4> Others:</h4>
+       <ul>
+          <li>EJS for template view engine
+          <li>Javascript (JQuery, AJAX)
+          <li>CSS
+          <li>...
+        </ul>
+    </li>
   </ul> 
   
 <h3>INSTALLATION:</h3>

@@ -31,8 +31,7 @@ app.set('views', './views')
 
 /*START MAIN ROUTES*/
 app.get('/', authMiddlewares.requireAuth, userRoutes);
-
-app.use('/dashboard', authMiddlewares.requireAuth, userRoutes);
+app.use('/user', authMiddlewares.requireAuth, userRoutes);
 app.use('/videocall', authMiddlewares.requireAuth, videoCall)
 
 app.use('/signup', signupRoutes);

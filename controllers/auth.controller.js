@@ -28,6 +28,6 @@ module.exports.identityUser = async (req, res) => {
         return; 
     }
     res.cookie('userId', existsUser._id, { signed: true });
-    res.redirect('/dashboard');
+    res.redirect('/');
 }
 

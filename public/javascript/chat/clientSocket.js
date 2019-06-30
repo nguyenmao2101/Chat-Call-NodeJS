@@ -3,6 +3,7 @@ $ (function(){
     var socket = io('/chat');
   
     var username = document.getElementById('me').innerHTML;
+    var name_receiver;
     var roomId;//variable for setting room.
     var toUser;
     var stt = -1;
@@ -59,7 +60,7 @@ $ (function(){
       $('#chat1').show();
       
       toUser = list_id[$(this).index()];
-      var name_receiver = document.getElementById('friend_id_' + $(this).index()).innerHTML;
+      name_receiver = document.getElementById('friend_id_' + $(this).index()).innerHTML;
       $('#receiverInfo').append($('<h5>').append(name_receiver)).append('<span>Ho Chi Minh</span>');
       $('#videoCall').val(toUser);
       eva.replace();
@@ -112,7 +113,7 @@ $ (function(){
   
     //sending message.
     $('#form_msg').submit(function(){
-      socket.emit('send-msg',{msg:$('#input_msg').val(),msgTo:toUser,date:Date.now()});
+      socket.emit('send-msg',{msg:$('#input_msg').val(),msgTo: name_receiver,date:Date.now()});
       $('#input_msg').val("");
       return false;
     });

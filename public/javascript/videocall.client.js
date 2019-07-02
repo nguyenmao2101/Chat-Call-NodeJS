@@ -1,9 +1,11 @@
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
 var openStream = () => {
     var configs = { video: true, audio: false };
     return navigator.mediaDevices.getUserMedia(configs);
 }
 
+//PLAY STREAM WITH TAG
 var playStream = (videoTag, stream) => {
     const video = document.getElementById(videoTag);
     video.srcObject = stream;

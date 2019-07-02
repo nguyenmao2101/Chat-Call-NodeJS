@@ -23,7 +23,7 @@ var playStream = (open, videoTag, stream) => {
 //Event Call 
 var Call = (btnClicked) => {
     var idCallee = $(btnClicked).attr('value');
-    var open = window.open('/videocall/incall/?peerId=' + idCallee, '_blank', 'width=600, height=700, resizable=0');
+    var open = window.open('/videocall/incall/?peerId=' + idCallee, '_blank', 'width=1200, height=700, resizable=0');
     openStream()
         .then(stream => {
             playStream(open, 'localStream', stream);
@@ -52,9 +52,10 @@ peer.on('call', async call => {
     if (data) {
         var result = await swal(data+" đang gọi bạn...", {
             buttons: ["Từ chối!", "Trả lời!"],
+            closeOnClickOutside: false,
         });
         if(result){
-            var open = window.open('/videocall/incall/?peerId=' + call.peer, '_blank', 'width=600, height=700, resizable=0');
+            var open = window.open('/videocall/incall/?peerId=' + call.peer, '_blank', 'width=1200, height=700, resizable=0');
             openStream()
                 .then(stream => {
                     playStream(open, 'localStream', stream);

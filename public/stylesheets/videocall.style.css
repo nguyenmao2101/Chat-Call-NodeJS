@@ -16,18 +16,45 @@ body {
 }
 
 #local {
-    position: absolute;
-    width: 400px;
-    right: 0;
+	position: absolute;
+    width: 100%;
     bottom: 0;
 }
 
 #remoteStream, #localStream {
 	height: -webkit-fill-available;
     object-fit: cover;
+    background-color: black;
 }
 #localStream {
 	height: 240px !important;
-	max-width: 100%;
-    max-height: 100%;
+}
+
+.control {
+    width: 50%;
+    position: absolute;
+    align-items: center;
+    border: none;
+}
+
+.video {
+	width: 400px;
+}
+
+.endCall {
+	outline: none;
+    height: 85px;
+    width: 85px;
+    border-radius: 50%;
+    opacity: .8;
+    background-color: red;
+    border: none;
+    margin-bottom: 15px;
+}
+
+.main-local {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+    align-items: flex-end;
 }

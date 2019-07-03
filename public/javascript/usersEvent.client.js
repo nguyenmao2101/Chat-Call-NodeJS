@@ -31,12 +31,11 @@ var Call = (btnClicked) => {
             console.log('calleeId: ' + idCallee);
             call.on('stream', remoteStream => playStream(open, 'remoteStream', remoteStream));
         })
-        .catch(e => console.log(e))
+        .catch(e => console.log(e));
 }
 
 //Listen on call 
 peer.on('call', async call => { 
-    console.log(call);
     var data = await $.ajax({   
         url: '/user/' + call.peer,
         method: 'GET',
@@ -63,7 +62,7 @@ peer.on('call', async call => {
                     call.on('stream', remoteStream => playStream(open, 'remoteStream', remoteStream));
                     call.on('close', () => {alert("The videocall has finished");});
                 })
-                .catch(e => console.log(e))
+                .catch(e => console.log(e));
         }
     }
 });
@@ -84,7 +83,6 @@ var viewInfo = (id) => {
         }
     })
 }
-
 
 
 

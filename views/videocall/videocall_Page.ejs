@@ -5,6 +5,8 @@
         <title>Video Call</title>
         <link rel="shortcut icon" href="">
         <link rel="stylesheet" href="/stylesheets/videocall.style.css" type="text/css">
+        <link rel="stylesheet" href="/stylesheets/css/chat/bootstrap.min.css" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script type="text/javascript" src="/javascript/build_in_libs/jquery-3.4.1.min.js"></script>
     </head>
 
@@ -14,8 +16,24 @@
             <video muted="muted" id="remoteStream" width="100%"></video>
         </div>
         <div id="local">
-            <video muted="muted" id="localStream" width="100%"></video>
+            <div class="main-local">
+                <div class="video">
+                    <video muted="muted" id="localStream" width="100%"></video>
+                </div>
+                
+                <div class="control">
+                    <button type="button" class="endCall" style="outline: none;" onclick="endCall()"><i class="material-icons" style="font-size: 42px;color: white;">call_end</i></button>
+                </div>
+            </div>
         </div>
+        <script type="text/javascript">
+
+            var endCall = () => {
+                event.preventDefault();
+                stream.close();
+            }
+
+        </script>
     </body>
 
 </html>

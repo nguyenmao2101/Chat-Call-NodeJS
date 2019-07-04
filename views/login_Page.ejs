@@ -17,9 +17,14 @@
               <!-- Login Form-->
               <form action="/login" method="POST">
                 <% err = typeof err !== 'string' ? "" : err %>
-                    <% if(err){ %>
-                        <div class="alert alert-danger notify"> <%= err%> </div>
-                    <% } %>
+                <% success = typeof success !== 'string' ? "" : success %>
+                <% if(err){ %>
+                    <div class="alert alert-danger notify"> <%= err%> </div>
+                <% }%>
+
+                <% if(success){ %>
+                    <div class="alert alert-success notify"> <%= success%> </div>
+                <% }%>
                 <input class="fadeIn second" id="login" type="email" name="email" placeholder="Email" required="required">
                 <input class="fadeIn third" id="password" type="password" name="password" placeholder="Mật khẩu">
                 <input class="fadeIn fourth" type="submit" value="Đăng nhập"></form>

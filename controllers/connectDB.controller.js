@@ -2,13 +2,18 @@ var Users = require('../models/users.model');
 var securePassword = require('./secure.controller');
 var ObjectID = require('mongodb').ObjectID;
 
+const nodemailer = require('nodemailer');
+const crypto = require("crypto");
+
 module.exports.addUser = async (req, res) => {
     var allow = await Users.find({ email: req.body.email });
     if (allow.length != 0) {
-        error = "Account already exists. Please Login!";
+        error = "Tài khoản đã tồn tại!";
         res.render('signup_Page', { err: error });
         return;
     }
+
+    const hashCode = crypto.randomBytes(30).toString('hex');
     var infoNewUser = new Users({
         _id: new ObjectID(), 
         name: req.body.name, 
@@ -16,13 +21,31 @@ module.exports.addUser = async (req, res) => {
         password: securePassword.encryptPassword(req.body.password), 
         avatar: "",
         createdOn: Date.now(),
-        lastActive: Date.now()
+        lastActive: Date.now(),
+        hashCode: hashCode
     });
 
     infoNewUser.save((err, res) => {
         if (err) throw err;
         console.log('Insert user success!');
     })
+
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'sangtran251298@gmail.com',
+          pass: 'sang25_admin' 
+        }
+    });
+
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+        from: 'sangtran251298@gmail.com',
+        to: req.body.email, 
+        subject: "VERIFY ACCOUNT ✔", 
+        html: "<span>Click <a href='http://localhost:1337/verify?userId="+infoNewUser._id+"&token="+hashCode+"'>here</a> to active account!!!</span>" 
+    });
+    console.log("Message sent: %s", info.messageId);
     res.redirect('/login');
 }
 
@@ -35,4 +58,27 @@ module.exports.getNameUserByID = async (req, res) => {
     } catch (e){
         console.log(e);
     }
+}
+
+module.exports.verifiedAccount = async (req, res) => {
+    var userId = req.query.userId;
+    var hashCode = req.query.token;
+    console.log(userId+' ++++++++ '+hashCode);
+    if (!userId || !hashCode) {
+        console.log('UserId or hashCode is not correct!');
+        return;
+    }
+
+    const filter = { _id: userId };
+    const update = {'$inc':{ isValidated: true }};
+    var verified = await Users.update({_id: userId}, {$set: { isValidated: true }}, {upsert: false}, function(err){
+        if (err) {
+            console.log('Could not update!' + err);
+            return;
+        } else {
+            console.log('Updated Success');
+        }
+    })
+    console.log(verified.isValidated);
+    res.render('login_Page', { success: 'Kích hoạt tài khoản thành công!' });
 }

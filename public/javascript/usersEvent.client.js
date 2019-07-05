@@ -106,6 +106,7 @@ $(document).ready(function () {
             contentType: false,
             success: function(data, textStatus, jqXHR) {
                 $('#avatarModal').modal('hide');
+                $("#userInfo").attr("src", data);
                 swal({
                     title: "Success!",
                     text: "Success update!",

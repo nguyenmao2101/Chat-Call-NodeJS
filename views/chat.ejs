@@ -19,6 +19,8 @@
 		<!-- Layout -->
 		<div class="layout">
 			<!-- Start of Navigation -->
+			<%defaultPath = "images/chat/avatars/default.svg"%>
+			<%path = (user.avatar !== "") ? user.avatar : defaultPath%>
 			<nav class="navigation">
 				<div class="container">
 					<a href="#" class="logo" rel="home"><img src="images/chat/logo.png" alt="logo"></a>
@@ -28,7 +30,11 @@
 						<li><a href="#notifications" data-toggle="tab" role="tab" aria-controls="notifications" aria-selected="false"><i data-eva="bell" data-eva-animation="pulse"></i></a></li>
 						<li><a href="#settings" data-toggle="tab" role="tab" aria-controls="settings" aria-selected="false"><i data-eva="settings" data-eva-animation="pulse"></i></a></li>
 						<li><button type="button" class="btn mode"><i data-eva="bulb" data-eva-animation="pulse"></i></button></li>
-						<li><button id="id_me" type="button" class="btn" value="<%= user._id %>"><img src="images/chat/avatars/default.svg" id="userInfo" alt="<%= user.name %>"><i data-eva="radio-button-on"></i></button></li>
+						<li>
+							<button id="id_me" type="button" class="btn" value="<%= user._id %>" data-toggle="modal" data-target="#avatarModal">
+								<img src="<%=path%>" id="userInfo" alt="<%= user.name %>"><i data-eva="radio-button-on"></i>
+							</button>
+						</li>
 					</ul>
 				</div>
 			</nav>
@@ -419,23 +425,45 @@
 			<!-- End of Compose -->
 		</div>
 		
+		<!-- START FORM UPDATE AVATAR -->
+		<div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="Avatar" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">Update Avatar</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>	
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		       	<form class="was-validated" style="margin: 20px 30px 56px 30px" id="avatarUpdate" action="" method="POST" enctype="multipart/form-data">
+				  	<div class="custom-file form-group" style="margin-bottom: 10px;">
+					    <input type="file" class="custom-file-input" id="validatedCustomFile" required name="avatar">
+					    <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+				  	</div>
+				  	<div class="form-group">
+						<button type="submit" class="btn btn-primary pull-right" id="avatarSubmit" disabled>Update</button>
+					</div>
+				</form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- END FORM UPDATE AVATAR -->
+
 		<!-- Layout -->
 		<script type="text/javascript" src="javascript/build_in_libs/jquery-3.4.1.min.js"></script>
-		<!-- <script type="text/javascript" src="javascript/chat/vendor/feather.min.js"></script> -->
-		<!-- <script type="text/javascript" src="javascript/chat/vendor/eva.min.js"></script> -->
 		<script type="text/javascript" src="javascript/chat/vendor/bootstrap.min.js"></script>
 		<script type="text/javascript" src="javascript/chat/vendor/moment.min.js"></script>
 		<script type="text/javascript" src="javascript/chat/vendor/socket.io-1.7.3.js"></script>
-		<!-- <script type="text/javascript" src="javascript/chat/swipe.min.js"></script> -->
 		<script type="text/javascript" src="javascript/chat/clientSocket.js"></script>
-		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<script type="text/javascript" src="/javascript/usersEvent.client.js"></script>
-		
 		<script src="template/js/vendor/popper.min.js"></script>
 		<script src="template/js/vendor/feather.min.js"></script>
 		<script src="template/js/vendor/eva.min.js"></script>
 		<script src="template/js/vendor/bootstrap.min.js"></script>
 		<script src="template/js/swipe.min.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	</body>
 	
 </html>																																																										

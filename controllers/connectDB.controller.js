@@ -87,11 +87,12 @@ module.exports.updateInfo = async (req, res) => {
     const filter = { _id: userId };
     var verified = await Users.updateOne({_id: userId}, {$set: { avatar: avatarPath }}, {upsert: false}, function(err){
         if (err) {
+            res.send(err);
             console.log('Could not update!' + err);
             return;
-        } else {
-            console.log('Updated Success');
         }
     })
-    res.redirect('/chat');
+    
+    console.log('Updated Success');
+    res.send(avatarPath);
 }

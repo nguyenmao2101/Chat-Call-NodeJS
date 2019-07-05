@@ -5,12 +5,12 @@
 		<title>Real Times App</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="#">
-		<link href="stylesheets/css/chat/bootstrap.min.css" type="text/css" rel="stylesheet">
-		<link href="stylesheets/css/chat/swipe.min.css" type="text/css" rel="stylesheet">
+		<link href="template/css/lib/bootstrap.min.css" type="text/css" rel="stylesheet">
+		<link href="template/css/swipe.min.css" type="text/css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link href="stylesheets/css/chat/custom.css" type="text/css" rel="stylesheet">
+		<link href="template/css/custom.css" type="text/css" rel="stylesheet">
 		<!-- Favicon -->
 		<link href="images/chat/logo.png" type="image/png" rel="icon">
 		<script type="text/javascript" src="/javascript/build_in_libs/peerjs.min.js"></script>
@@ -230,7 +230,7 @@
 								<div class="container">
 									<div class="top">
 										<div class="headline">
-											<img src="images/chat/avatars/avatar-group-1.jpg" alt="avatar">
+											<img src="images/chat/avatars/default.svg" alt="avatar">
 											<div class="content">
 												<h5>UIT Group</h5>
 												<span>Tin nhắn nhóm</span>
@@ -257,7 +257,7 @@
 									<div class="container">
 										<ul>
 											<li>
-												<img src="images/chat/avatars/avatar-male-3.jpg" alt="avatar">
+												<img src="images/chat/avatars/default.svg" alt="avatar">
 												<div class="content">
 													<div class="message">
 														<div class="bubble">
@@ -325,7 +325,7 @@
 												<li>
 													<ul class="avatars">
 														<li><button class="btn round"><i data-eva="file-text"></i></button></li>
-														<li><a href="#"><img src="images/chat/avatars/avatar-male-1.jpg" alt="avatar"></a></li>
+														<li><a href="#"><img src="images/chat/avatars/default.svg" alt="avatar"></a></li>
 													</ul>
 													<div class="meta">
 														<a href="#"><h5>workbox.js</h5></a>
@@ -420,17 +420,22 @@
 		</div>
 		
 		<!-- Layout -->
-		<script src="javascript/build_in_libs/jquery-3.4.1.min.js"></script>
-		<script src="javascript/chat/vendor/popper.min.js"></script>
-		<script src="javascript/chat/vendor/feather.min.js"></script>
-		<script src="javascript/chat/vendor/eva.min.js"></script>
-		<script src="javascript/chat/vendor/bootstrap.min.js"></script>
-		<script src="javascript/chat/vendor/moment.min.js"></script>
-		<script src="javascript/chat/vendor/socket.io-1.7.3.js"></script>
-		<script src="javascript/chat/swipe.min.js"></script>
-		<script src="javascript/chat/clientSocket.js"></script>
-		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script type="text/javascript" src="javascript/build_in_libs/jquery-3.4.1.min.js"></script>
+		<!-- <script type="text/javascript" src="javascript/chat/vendor/feather.min.js"></script> -->
+		<!-- <script type="text/javascript" src="javascript/chat/vendor/eva.min.js"></script> -->
+		<script type="text/javascript" src="javascript/chat/vendor/bootstrap.min.js"></script>
+		<script type="text/javascript" src="javascript/chat/vendor/moment.min.js"></script>
+		<script type="text/javascript" src="javascript/chat/vendor/socket.io-1.7.3.js"></script>
+		<!-- <script type="text/javascript" src="javascript/chat/swipe.min.js"></script> -->
+		<script type="text/javascript" src="javascript/chat/clientSocket.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<script type="text/javascript" src="/javascript/usersEvent.client.js"></script>
+		
+		<script src="template/js/vendor/popper.min.js"></script>
+		<script src="template/js/vendor/feather.min.js"></script>
+		<script src="template/js/vendor/eva.min.js"></script>
+		<script src="template/js/vendor/bootstrap.min.js"></script>
+		<script src="template/js/swipe.min.js"></script>
 	</body>
 	
 </html>																																																										

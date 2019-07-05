@@ -10,6 +10,7 @@ $ (function(){
     var toUser;
     var stt = -1;
     var list_id;
+    var list_ava;
     $('#chat1').hide();
 
     //passing data on connection.
@@ -19,16 +20,20 @@ $ (function(){
     });
 
     //receiving onlineList
-    socket.on('onlineList',function(list, idList){
+    socket.on('onlineList',function(list, idList, avaList){
       $('#list').empty();
       $('#list_msg').empty();
       list_id = idList;
+      list_ava = avaList;
       stt = -1;
       for (var user in list){
-        //setting txt1. shows users button.
         if(user != username){
           stt += 1;
-          var img = '<img src="../../images/chat/avatars/default.svg" alt="avatar">';
+          if (avaList[user] == "") {
+            var img = '<img src="../../images/chat/avatars/default.svg" alt="avatar">';
+          } else {
+            var img = '<img src="../../' + avaList[user] + '" alt="avatar">';
+          }
           var name_friend = '<h5 id="friend_id_' + stt + '">' + user + '</h5>';
           var user_info = $('<div class="content">').append($('<h5>').append(user)).append('<span>Ho Chi Minh</span>');
           var icon = $('<div class="icon"><i data-eva="person"></i></div>');
@@ -37,7 +42,7 @@ $ (function(){
         else{
             continue;
         }
-        //setting txt2. shows online status.
+        //Show online status.
         if(list[user] == "Online"){
           var status = $('<div class="status online">').append($(img)).append($('<i data-eva="radio-button-on">'));
           var status1 = $('<div class="status online">').append($(img)).append($('<i data-eva="radio-button-on">'));
@@ -46,7 +51,7 @@ $ (function(){
           var status = $('<div class="status offline">').append($(img)).append($('<i data-eva="radio-button-on">'));
           var status1 = $('<div class="status offline">').append($(img)).append($('<i data-eva="radio-button-on">'));
         }
-        //listing all users.
+        //Listing all users.
         $('#list').append($('<li>').append($('<a href="#">').append(status, user_info, icon)));
         eva.replace();
         $('#list_msg').append($('<li>').append($('<a href="#chat1" class="filter direct active" data-chat="open" data-toggle="tab" role="tab" aria-controls="chat1" aria-selected="true">').append(status1, user_msg)));
@@ -63,7 +68,14 @@ $ (function(){
       
       name_receiver = document.getElementById('friend_id_' + $(this).index()).innerHTML;
       toUser = list_id[name_receiver];
-      $('#receiverInfo').append($('<h5>').append(name_receiver)).append('<span>Ho Chi Minh</span>');
+
+      if (list_ava[name_receiver] == "") {
+        var img = '<img src="../../images/chat/avatars/default.svg" alt="avatar">';
+      } else {
+        var img = '<img src="../../' + list_ava[name_receiver] + '" alt="avatar">';
+      }
+      var user_info = $('<div class="content">').append($('<h5>').append(name_receiver)).append('<span>Ho Chi Minh</span>');
+      $('#receiverInfo').append(img, user_info);
       $('#videoCall').val(toUser);
       eva.replace();
       var room1 = id_username + '-' + toUser;

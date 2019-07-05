@@ -23,6 +23,7 @@ module.exports.sockets = function(http) {
     var userSocket = {};
     var userList = {};
     var idList = {};
+    var avaList = {};
 
     //Connect socket.io
     ioMsg.on('connection', function(socket) {
@@ -49,7 +50,7 @@ module.exports.sockets = function(http) {
                 }
               }
               //For popping connection message.
-              ioMsg.emit('onlineList', userList, idList);
+              ioMsg.emit('onlineList', userList, idList, avaList);
             }
         });
 
@@ -111,7 +112,7 @@ module.exports.sockets = function(http) {
             _.unset(userSocket, socket.username);
             userList[socket.username] = "Offline";
     
-            ioMsg.emit('onlineList', userList, idList);
+            ioMsg.emit('onlineList', userList, idList, avaList);
         });
     });
 
@@ -158,7 +159,7 @@ module.exports.sockets = function(http) {
     //listening for get-all-users event. creating list of all users.
     eventEmitter.on('get-all-users', function() {
         usersModel.find({})
-        .select('_id name')
+        .select('_id name avatar')
         .exec(function(err, result) {
             if (err) {
             console.log("Error : " + err);
@@ -167,6 +168,7 @@ module.exports.sockets = function(http) {
             for (var i = 0; i < result.length; i++) {
                 userList[result[i].name] = "Offline";
                 idList[result[i].name] = result[i]._id;
+                avaList[result[i].name] = result[i].avatar;
             }
             onlineUserList();
             }

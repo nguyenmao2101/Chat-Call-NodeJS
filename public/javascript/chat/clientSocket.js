@@ -106,14 +106,22 @@ $ (function(){
             //styling of chat message.
             if(data.result[i].msgFrom == username) {
               //styling of chat message.
-              var image = '<img style="margin-right: 0; margin-left: 15px;" src="images/chat/avatars/default.svg" alt="avatar">';
+              if (list_ava[name_receiver] == "") {
+                var image = '<img style="margin-right: 0; margin-left: 15px;" src="images/chat/avatars/default.svg" alt="avatar">';
+              } else {
+                var image = '<img style="margin-left: 15px; margin-right: 0;" src="' + list_ava[username] + '" alt="avatar">';
+              }
               var content = '<div class="content"><div class="message"><div style="background: #007bff;" class="bubble"><p>' + data.result[i].msg + '</p></div></div>'+'</div>';
               //showing chat in chat box.
               $('#list_detail_msg').append($('<li style="flex-direction: row; justify-content: flex-end; text-align: right">')
               .append($(image), $(content)));
     
             } else {
-              var image = '<img style="margin-right: 15px; margin-left: 0;" src="images/chat/avatars/default.svg" alt="avatar">';
+              if (list_ava[name_receiver] == "") {
+                var image = '<img style="margin-right: 15px; margin-left: 0;" src="images/chat/avatars/default.svg" alt="avatar">';
+              } else {
+                var image = '<img style="margin-right: 15px; margin-left: 0;" src="' + list_ava[name_receiver] + '" alt="avatar">';
+              }
               var content = '<div class="content"><div class="message"><div style="background: #f5f5f5;" class="bubble"><p style="color: black">' + data.result[i].msg + '</p></div></div>'+'</div>';
               //showing chat in chat box.
               $('#list_detail_msg').append($('<li style="flex-direction: row-reverse; justify-content: flex-end; text-align: left">').append($(image), $(content)));
@@ -146,14 +154,22 @@ $ (function(){
 
           if(data.msgFrom == username) {
             //styling of chat message.
-            var image = '<img style="margin-right: 0; margin-left: 15px;" src="images/chat/avatars/default.svg" alt="avatar">';
+            if (list_ava[name_receiver] == "") {
+              var image = '<img style="margin-right: 0; margin-left: 15px;" src="images/chat/avatars/default.svg" alt="avatar">';
+            } else {
+              var image = '<img style="margin-left: 15px; margin-right: 0;" src="' + list_ava[username] + '" alt="avatar">';
+            }
             var content = '<div class="content"><div class="message"><div style="background: #007bff;" class="bubble"><p>' + data.msg + '</p></div></div>'+'</div>';
             //showing chat in chat box.
             $('#list_detail_msg').append($('<li style="flex-direction: row; justify-content: flex-end; text-align: right">')
             .append($(image), $(content)));
   
           } else {
-            var image = '<img style="margin-right: 15px; margin-left: 0;" src="images/chat/avatars/default.svg" alt="avatar">';
+            if (list_ava[name_receiver] == "") {
+              var image = '<img style="margin-right: 15px; margin-left: 0;" src="images/chat/avatars/default.svg" alt="avatar">';
+            } else {
+              var image = '<img style="margin-right: 15px; margin-left: 0;" src="' + list_ava[name_receiver] + '" alt="avatar">';
+            }
             var content = '<div class="content"><div class="message"><div style="background: #f5f5f5;" class="bubble"><p style="color: black">' + data.msg + '</p></div></div>'+'</div>';
             //showing chat in chat box.
             $('#list_detail_msg').append($('<li style="flex-direction: row-reverse; justify-content: flex-end; text-align: left">').append($(image), $(content)));

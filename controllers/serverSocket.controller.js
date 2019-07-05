@@ -97,6 +97,7 @@ module.exports.sockets = function(http) {
             //emits event to send chat msg to all clients.
             ioMsg.to(socket.room).emit('detail-msg', {
                 msgFrom: socket.username,
+                msgTo: data.msgTo,
                 msg: data.msg,
                 date: data.date
             });

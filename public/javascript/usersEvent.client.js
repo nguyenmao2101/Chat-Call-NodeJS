@@ -84,6 +84,40 @@ var viewInfo = (id) => {
     })
 }
 
+$(document).ready(function () {
+    $('input:file').change(
+        function(){
+            if ($(this).val()) {
+                $('#avatarSubmit').attr('disabled',false);
+                $('#avatarSubmit').css('background-color', '#007bff')
+            } 
+        }
+    );
 
 
+    $("#avatarUpdate").submit(function(e) {
+        e.preventDefault();
+        var form = $(this);
+        $.ajax({
+            type: "POST",
+            url: 'user/updateinfo?userId='+idCaller,
+            data: new FormData( this ),
+            processData: false,
+            contentType: false,
+            success: function(data, textStatus, jqXHR) {
+                $('#avatarModal').modal('hide');
+                $("#userInfo").attr("src", data);
+                swal({
+                    title: "Success!",
+                    text: "Success update!",
+                    icon: "success",
+                    button: "OK",
+                });
+            },
+            error: function(jqXHR, status, error) {
+                console.log(status + ": " + error);
+            }
+        });
+    });
+});
 

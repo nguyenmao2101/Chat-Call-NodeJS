@@ -42,7 +42,7 @@ module.exports.addUser = async (req, res) => {
     let info = await transporter.sendMail({
         from: 'sangtran251298@gmail.com',
         to: req.body.email, 
-        subject: "VERIFY ACCOUNT ✔", 
+        subject: "[VERIFY ACCOUNT]", 
         html: "<span>Click <a href='http://localhost:1337/verify?userId="+infoNewUser._id+"&token="+hashCode+"'>here</a> to active account!!!</span>" 
     });
     console.log("Message sent: %s", info.messageId);
@@ -63,15 +63,14 @@ module.exports.getNameUserByID = async (req, res) => {
 module.exports.verifiedAccount = async (req, res) => {
     var userId = req.query.userId;
     var hashCode = req.query.token;
-    console.log(userId+' ++++++++ '+hashCode);
     if (!userId || !hashCode) {
         console.log('UserId or hashCode is not correct!');
         return;
     }
 
     const filter = { _id: userId };
-    const update = {'$inc':{ isValidated: true }};
-    var verified = await Users.update({_id: userId}, {$set: { isValidated: true }}, {upsert: false}, function(err){
+    // const update = {'$inc':{ isValidated: true }};
+    var verified = await Users.updateOne({_id: userId}, {$set: { isValidated: true }}, {upsert: false}, function(err){
         if (err) {
             console.log('Could not update!' + err);
             return;
@@ -79,6 +78,21 @@ module.exports.verifiedAccount = async (req, res) => {
             console.log('Updated Success');
         }
     })
-    console.log(verified.isValidated);
     res.render('login_Page', { success: 'Kích hoạt tài khoản thành công!' });
+}
+
+module.exports.updateInfo = async (req, res) => {
+    var userId = req.query.userId;
+    var avatarPath = req.file.path.split("\\").slice(1).join("/");
+    const filter = { _id: userId };
+    var verified = await Users.updateOne({_id: userId}, {$set: { avatar: avatarPath }}, {upsert: false}, function(err){
+        if (err) {
+            res.send(err);
+            console.log('Could not update!' + err);
+            return;
+        }
+    })
+    
+    console.log('Updated Success');
+    res.send(avatarPath);
 }

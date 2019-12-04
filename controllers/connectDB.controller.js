@@ -30,23 +30,24 @@ module.exports.addUser = async (req, res) => {
         console.log('Insert user success!');
     })
 
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'sangtran251298@gmail.com',
-          pass: 'sang25_admin' 
-        }
-    });
+    // let transporter = nodemailer.createTransport({
+    //     service: 'gmail',
+    //     auth: {
+    //       user: 'sangtran251298@gmail.com',
+    //       pass: 'sang25_admin' 
+    //     }
+    // });
 
     // send mail with defined transport object
-    let info = await transporter.sendMail({
-        from: 'sangtran251298@gmail.com',
-        to: req.body.email, 
-        subject: "[VERIFY ACCOUNT]", 
-        html: "<span>Click <a href='http://localhost:1337/verify?userId="+infoNewUser._id+"&token="+hashCode+"'>here</a> to active account!!!</span>" 
-    });
-    console.log("Message sent: %s", info.messageId);
-    res.redirect('/login');
+    // let info = await transporter.sendMail({
+    //     from: 'sangtran251298@gmail.com',
+    //     to: req.body.email, 
+    //     subject: "[VERIFY ACCOUNT]", 
+    //     html: "<span>Click <a href='http://localhost:1337/verify?userId="+infoNewUser._id+"&token="+hashCode+"'>here</a> to active account!!!</span>" 
+    // });
+    // console.log("Message sent: %s", info.messageId);
+    res.redirect('http://localhost:1337/verify?userId=' + infoNewUser._id + '&token=' + hashCode)
+    // res.redirect('/login');
 }
 
 module.exports.getNameUserByID = async (req, res) => {
